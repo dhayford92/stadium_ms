@@ -52,7 +52,7 @@ export default function CheckOut() {
                     <button
                     type="submit"
                     className="button">
-                    Place Order
+                        Place Order
                     </button>
                 </form>
             </div>

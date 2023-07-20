@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className='bg-slate-50 text-[#1e293b] w-full h-screen'>
+        <div className='bg-slate-50 text-[#1e293b] w-full'>
           {children}
         </div>
       </body>

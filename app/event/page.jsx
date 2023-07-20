@@ -43,7 +43,7 @@ export default function Event() {
                         image={ticket.image} 
                         price={ticket.price} 
                         date={ticket.date} 
-                        route='/event'
+                        route='/event/detail'
                     />
                     ))}
                 </div>

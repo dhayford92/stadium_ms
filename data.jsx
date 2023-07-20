@@ -66,3 +66,100 @@ export const ticketData = [
         date: 'July 15, 2023',
     },
 ];
+
+
+
+export const parkData = [
+    {
+        title: '10',
+        status: 'booked'
+    },
+    {
+        title: '34',
+        status: 'reserve'
+    },
+    {
+        title: '21',
+        status: 'booked'
+    },
+    {
+        title: '11',
+        status: 'reserve'
+    },
+    {
+        title: '13',
+        status: 'reserve'
+    },
+    {
+        title: '21',
+        status: 'booked'
+    },
+    {
+        title: '1',
+        status: 'reserve'
+    },
+    {
+        title: '12',
+        status: 'reserve'
+    },
+    {
+        title: '3',
+        status: 'booked'
+    },
+    {
+        title: '9',
+        status: 'reserve'
+    },
+    {
+        title: '13',
+        status: 'reserve'
+    },
+    {
+        title: '2',
+        status: 'booked'
+    },
+    {
+        title: '18',
+        status: 'reserve'
+    },
+    {
+        title: '4',
+        status: 'reserve'
+    },
+    {
+        title: '21',
+        status: 'booked'
+    },
+    {
+        title: '11',
+        status: 'reserve'
+    },
+    {
+        title: '13',
+        status: 'reserve'
+    },
+    {
+        title: '14',
+        status: 'booked'
+    },
+    {
+        title: '16',
+        status: 'reserve'
+    },
+    {
+        title: '15',
+        status: 'reserve'
+    },
+    {
+        title: '18',
+        status: 'booked'
+    },
+    {
+        title: '11',
+        status: 'reserve'
+    },
+    {
+        title: '20',
+        status: 'reserve'
+    },
+]
