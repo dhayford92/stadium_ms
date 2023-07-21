@@ -20,7 +20,7 @@ export default function Home() {
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
           {/* image side  */}
-          <div className='overflow-hidden h-30 md:h-auto md:w-1/2 relative object-cover'>
+          <div className='overflow-hidden h-30 md:h-auto md:w-1/2 relative object-contain'>
             <Image className='absolute' src='/login.png' fill={true}/>
           </div>
           {/* login form side  */}

@@ -1,19 +1,23 @@
+'use client'
 import React from 'react'
 import { BsSearch } from "react-icons/bs";
+import { useRouter } from 'next/navigation';
 
 export default function Transaction() {
+    const route = useRouter();
+
     const data = [
         {
           id: '123456',
           date: '2023-06-25',
           status: 'Completed',
-          total: '$50',
+          total: 'GH₵50.0',
         },
         {
           id: '789012',
           date: '2023-06-26',
           status: 'Pending',
-          total: '$30',
+          total: 'GH₵30.0',
         },
       ];
 
@@ -22,7 +26,7 @@ export default function Transaction() {
         <div className='flex flex-col spcae-y-5 md:justify-between md:flex-row md:space-y-0 md:space-x-5'>
             <div className='p-3 w-full md:w-1/2 rounded-lg shadow-lg shadow-slate-200'>
                 <h1 className='font-semibold text-xl text-start'>Tickets</h1>
-                <h1 className='font-bold text-4xl mt-3'>0</h1>
+                <h1 className='font-bold text-4xl mt-3'>2</h1>
             </div>
             <div className='p-3 w-full md:w-1/2 rounded-lg shadow-lg shadow-slate-200'>
                 <h1 className='font-semibold text-xl text-start'>Refunds</h1>
@@ -64,7 +68,7 @@ export default function Transaction() {
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.status}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.total}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                  <button className="text-slate-500 hover:underline focus:outline-none">
+                  <button onClick={()=> route.push('invoice')} className="text-slate-500 hover:underline focus:outline-none">
                     View
                   </button>
                 </td>

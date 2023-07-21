@@ -5,7 +5,7 @@ import { parkData } from '@/data';
 
 
 export default function ParkSlot() {
-    const route = useRouter();
+  const route = useRouter();
 
   return (
     <div className='flex flex-col justify-between items-center space-y-4 p-5'>
@@ -31,7 +31,7 @@ export default function ParkSlot() {
             placeholder='Enter your ticket ID' 
             className='ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
         </div>
-        <button onClick={()=>route.push('checkout')}
+        <button onClick={()=>route.push('profile')}
         className='inline-block bg-slate-500 text-white text-xl font-semibold rounded-lg h-10 px-6 py-2 uppercase'>
             Reserve Parking Space
         </button>

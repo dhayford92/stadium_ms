@@ -1,12 +1,21 @@
+'use client'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function CheckOut() {
+    const route = useRouter();
+
+    const submitPayment = (e)=> {
+        e.preventDefault();
+        route.push('success')
+    }
+
   return (
     <div className='w-full h-screen flex justify-center items-center'>
         <div className="flex flex-col md:flex-row m-5">
             <div className="md:w-2/3">
                 <h2 className="text-2xl font-bold mb-4">Checkout</h2>
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={(e)=> submitPayment(e)}>
                     <div>
                         <label htmlFor="address" className="block text-gray-600 font-semibold mb-1">
                             Address
@@ -49,28 +58,26 @@ export default function CheckOut() {
                         />
                     </div>
                     </div>
-                    <button
-                    type="submit"
-                    className="button">
+                    <button type="submit" className="button">
                         Place Order
                     </button>
                 </form>
             </div>
-            <div className="md:w-1/3 mt-8 md:mt-0 md:ml-8">
+            <div className="md:w-1/2 mt-8 md:mt-0 md:ml-8">
             <div className="bg-white rounded-md shadow-lg p-4">
                 <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
                 <div className="flex items-center justify-between mb-2">
                 <span>Product 1</span>
-                <span>$10</span>
+                <span>GH₵10</span>
                 </div>
                 <div className="flex items-center justify-between mb-2">
                 <span>Product 2</span>
-                <span>$15</span>
+                <span>GH₵15</span>
                 </div>
                 <hr className="my-2" />
                 <div className="flex items-center justify-between">
                 <span>Total</span>
-                <span>$25</span>
+                <span>GH₵25</span>
                 </div>
             </div>
             </div>

@@ -16,7 +16,7 @@ export default function UpdateProfile() {
             </div>
             <div className='flex flex-col space-y-4'>
                 <label for='' className='font-bold text-md'>Your password</label>
-                <input type='password' placeholder='Your email' 
+                <input type='password' placeholder='*******' 
                 className='ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
             </div>
             <button className='inline-block self-end bg-slate-500 text-white text-xl font-semibold rounded-lg h-10 px-6 py-2 uppercase'>Update Profile</button>
