@@ -8,7 +8,7 @@ export default function Navbar() {
   const route = useRouter();
 
   return (
-    <nav className='h-20 p-5 w-full flex justify-between items-center shadow-xl shadow-slate-100 sticky'>
+    <nav className='h-20 p-5 w-full flex justify-between items-center sticky top-0 z-20 bg-white'>
       {/* title */}
       <div className='flex flex-row space-x-3 md:space-x-0'>
         <BsFilterLeft size={40} className='md:hidden hover:transition ease-in duration-150 hover:text-slate-400 cursor-pointer'/>

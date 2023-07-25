@@ -9,9 +9,9 @@ export const metadata = {
 
 export default function Layout({children}) {
   return (
-    <div className="flex flex-row space-x-5">
+    <div className="flex flex-row">
         <SideBar/>
-        <div className=''>
+        <div className='flex flex-col space-y-5 flex-1'>
             <Navbar/>
             {children}
         </div>
