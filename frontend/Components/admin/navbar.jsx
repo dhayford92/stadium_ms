@@ -15,7 +15,7 @@ export default function navbar() {
     }
 
   return (
-    <div className='z-20 w-full py-4 bg-white shadow-md flex justify-between items-center pr-5 pl-8 sticky top-0'>
+    <header className='z-20 w-full py-4 bg-white shadow-md flex justify-between items-center pr-5 pl-8 sticky top-0'>
         <button className="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple" aria-label="Menu">
             <svg className="w-6 h-6" aria-hidden="true"  fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd"
@@ -152,6 +152,6 @@ export default function navbar() {
                 </div>
             </li>
         </ul>
-    </div>
+    </header>
   )
 }
