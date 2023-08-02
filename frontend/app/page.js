@@ -11,8 +11,32 @@ export const metadata = {
 export default function Home() {
   const route = useRouter();
 
-  const handleLogin = (e) => {
-    route.push('/event');
+  const login = async (e) =>{
+    e.preventDefault()
+    const email = e.target[0]
+    const password = e.target[1]
+    const response = await fetch('http://127.0.0.1:8000/api/user/login/', {
+        method: 'POST',
+        body: JSON.stringify({
+            email: email.value,
+            password: password.value
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+        }
+      })
+      const data = await response.json()
+
+      if(response.status === 200){
+          localStorage.setItem('token', data['token']['access'])
+          data['is_staff'] === true ? route.push('/dashboard') : route.push('/event')
+      }
+      else if(response.status === 400){
+          alert(`${data['message']}`)
+      }
+      else{
+        alert('Something went wrong')
+      }
   }
   
   return (
@@ -21,39 +45,41 @@ export default function Home() {
         <div className='flex flex-col overflow-y-auto md:flex-row'>
           {/* image side  */}
           <div className='overflow-hidden h-30 md:h-auto md:w-1/2 relative object-contain'>
-            <Image className='absolute' src='/login.png' fill={true}/>
+            <Image className='absolute h-30 md:h-auto md:w-1/2' src='/login.png' alt='login' fill={true}/>
           </div>
           {/* login form side  */}
           <div className='w-full p-5 md:w-1/2 md:p-24 rounded-2xl md:rounded-0 flex flex-col'>
             <h1 className='mb-4 text-xl font-semibold text-gray-700 uppercase'>Login</h1>
-            <form action='/event' className='mt-10 flex flex-col space-y-5' onSubmit={(e)=>handleLogin(e)}>
-              <label class="block text-sm">
-                <span class="text-gray-700">Email</span>
-                <input
-                  class="auth-input"
+            <form className='mt-10 flex flex-col space-y-5' onSubmit={(e)=>login(e)}>
+              <label className="block text-sm">
+                <span className="text-gray-700">Email</span>
+                <input                  
+                  name='email'
+                  className="auth-input"
                   placeholder="yourmail@mail.com"
                 />
               </label>
-              <label class="block mt-4 text-sm">
-                <span class="text-gray-700">Password</span>
+              <label className="block mt-4 text-sm">
+                <span className="text-gray-700">Password</span>
                 <input
-                  class="auth-input"
+                  name='password'
+                  className="auth-input"
                   placeholder="***************"
                   type="password"
                 />
               </label>
-              <button className='w-full button'>Sign In</button>
+              <button type='submit' className='w-full button'>Sign In</button>
             </form>
-            <hr class="my-8" />
-            <p class="mt-4">
+            <hr className="my-8" />
+            <p className="mt-4">
                 <Link
-                  class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="">
+                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline" href="">
                   Forgot your password?
                 </Link>
             </p>
-            <p class="mt-1">
+            <p className="mt-1">
               <Link
-                class="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
+                className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline"
                 href="/register"
               >
                 Create account

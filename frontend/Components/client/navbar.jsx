@@ -32,12 +32,11 @@ export default function Navbar() {
         
         {/* profile  */}
         <div className='flex flex-row space-x-2 md:space-x-4'>
-          <div className='pr-3 pl-3 rounded-full border-2 hover:bg-slate-500 border-slate-700 items-center hover:text-cyan-700 hover:transition ease-in duration-200 cursor-pointer'>
+          {/* <div className='pr-3 pl-3 rounded-full border-2 hover:bg-slate-500 border-slate-700 items-center hover:text-cyan-700 hover:transition ease-in duration-200 cursor-pointer'>
               <BsCartDash onClick={()=>route.replace('event/cart')} className='h-10 text-center'/>
-              {/* <span className='absolute mt-0 font-black text-lg text-start'>0</span> */}
-          </div>
+          </div> */}
           <div className='pr-3 pl-3 rounded-full border-2 hover:bg-slate-500 border-slate-700 text-center hover:text-cyan-700 hover:transition ease-in duration-200 cursor-pointer'>
-            <BsFillPersonLinesFill onClick={()=>route.replace('event/profile')} className='h-10'/>
+            <BsFillPersonLinesFill onClick={()=>route.push('/event/profile')} className='h-10'/>
           </div>
         </div>
         

@@ -1,7 +1,9 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function navbar() {
+    const route = useRouter();
     const [profileOpen, setProfileOpen] = useState(false);
     const [notOpen, setNoteOpen] = useState(false);
 
@@ -12,6 +14,30 @@ export default function navbar() {
     const closePro = () => {
         setProfileOpen((prev)=>!prev);
         setNoteOpen(false);
+    }
+
+    const Logout = async () => {
+        const user = localStorage.getItem('user');
+        if(!user){
+            alert('You are not logged in')
+            return
+        }
+        console.log(user)
+        const response = await fetch('http://127.0.0.1:8000/api/user/logout/', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user['token']}`,
+            }
+        })
+        const data = await response.json();
+        if(response.status === 204){
+            localStorage.removeItem('user');
+            route.push('/')
+            alert(`${data['message']}`)
+        }else{
+            alert(`${data['detail']}`)
+        }
     }
 
   return (
@@ -129,8 +155,8 @@ export default function navbar() {
                         </a>
                     </li>
                     <li className="flex">
-                        <a className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="/">
+                        <button  onClick={()=>Logout()} className="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
+                        >
                         <svg
                             className="w-4 h-4 mr-3"
                             aria-hidden="true"
@@ -146,7 +172,7 @@ export default function navbar() {
                             ></path>
                         </svg>
                         <span>Log out</span>
-                        </a>
+                        </button>
                     </li>
                     </ul>
                 </div>

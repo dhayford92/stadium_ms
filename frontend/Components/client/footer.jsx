@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Footer() {
   return (
-    <div className='grid gap-10 bg-slate-200 w-full p-8 md:p-24 md:grid-flow-col md:grid-cols-4'>
+    <footer className='grid gap-10 bg-slate-200 w-full p-8 md:p-24 md:grid-flow-col md:grid-cols-4'>
         <div className='flex flex-col space-y-4 justify-start items-center md:items-start'>
           <h1 className='text-2xl font-bold'>
               Event
@@ -34,6 +34,6 @@ export default function Footer() {
             <span>Who are we?</span>
           </div>
         </div>
-    </div>
+    </footer>
   )
 }

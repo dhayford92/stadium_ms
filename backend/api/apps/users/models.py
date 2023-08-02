@@ -1,6 +1,7 @@
-from datetime import timezone
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, PermissionsMixin, AbstractBaseUser
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
@@ -55,3 +56,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_email(self):
         return self.email
+    
+    @property
+    def token(self):
+        token = RefreshToken.for_user(self)
+        token['fullname'] = self.fullname
+        return {
+            'refresh': str(token),
+            'access': str(token.access_token)
+        }
+        
+    class Meta:
+        db_table = 'users'

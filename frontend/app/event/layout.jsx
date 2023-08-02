@@ -5,7 +5,7 @@ import React from 'react'
 
 export default function Layout({ children }) {
   return (
-    <div className='flex flex-col justify-between w-full h-screen'>
+    <div className='flex flex-col w-full h-full'>
         <Navbar/>
         {children}
         <Footer/>

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import User
 
 
-
+# --- register serializer
 class UserRegsiter(serializers.ModelSerializer):
     password = serializers.CharField(min_length=3, write_only=True)
     
@@ -25,4 +25,33 @@ class UserRegsiter(serializers.ModelSerializer):
     
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
+
+
+# --- login serializer
+class LoginSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(min_length=3, write_only=True)
+    email = serializers.EmailField(min_length=3)
     
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'password', 'fullname', 'token', 'is_staff']
+        read_only_fields = ['id', 'fullname', 'token', 'is_staff']
+    
+    def validate(self, attrs):
+        email = attrs.get('email', None)
+        
+        if email is None:
+            raise ValueError('Email can not be empty')
+        return attrs
+    
+    
+# --- user serializer
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'fullname', 'email', 'number', 'is_staff']
+        read_only_fields = ['id', 'email', 'is_staff']
+
+
+
+# Compare this snippet from backend\api\apps\users\models.py:

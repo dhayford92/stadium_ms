@@ -68,8 +68,11 @@ export default function Transaction() {
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.status}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.total}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                  <button onClick={()=> route.push('invoice')} className="text-slate-500 hover:underline focus:outline-none">
+                  <button onClick={()=>route.push('invoice')} className="text-slate-500 hover:underline focus:outline-none">
                     View
+                  </button>
+                  <button onClick={()=>route.push('/event/checkout')} className="ml-2 text-red-500 hover:underline focus:outline-none">
+                    Pay
                   </button>
                 </td>
               </tr>

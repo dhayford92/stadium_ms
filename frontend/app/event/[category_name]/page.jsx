@@ -1,9 +1,34 @@
-import React from 'react'
-import { ticketData } from '@/data';
+'use client'
+import React, {useEffect, useState} from 'react'
 import Card from '@/Components/Card/card'
+import { GetAllEvents } from '@/Utils/ClientServer/event_server';
+import { useRouter } from 'next/navigation';
 
 export default function EventCategory({ params }) {
-    
+    const route = useRouter();
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(token)
+        if(!token){
+            alert('You are not logged in')
+            route.push('/') 
+        }
+        GetAllEvents(token).then((data)=>{
+            if(data['message'] || data['detail']){
+                alert(data['message'] || data['detail'])
+            }else{
+                let sport = data.filter((ticket) => {
+                    return ticket.event_type.toLowerCase().includes(params.category_name.toLowerCase())
+                })
+                setData(sport)
+            }
+        }).catch((error)=>{
+            alert(error)
+        });
+        
+    }, []);
    
   return (
     <div className='w-full flex flex-col spce-y-5'>
@@ -16,15 +41,16 @@ export default function EventCategory({ params }) {
             </div>
         </div>
         <div className="p-5 flex flex-wrap space-x-5 space-y-5 md:justify-center justify-start overflow-x-auto overflow-visible">
-            {ticketData.map((ticket, index) => (
-                <Card 
-                    index={index} 
-                    title={ticket.title} 
-                    image={ticket.image} 
-                    price={ticket.price} 
-                    date={ticket.date} 
-                    route='/event/detail'
-                />
+            {data.map((ticket, index) => (
+            <Card 
+                key={index}
+                index={index} 
+                title={ticket.title} 
+                image={ticket.image} 
+                price={ticket.price} 
+                date={ticket.date} 
+                route={`/event/detail/${ticket.id}`}
+            />
             ))}
         </div>
     </div>
