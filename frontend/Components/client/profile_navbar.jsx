@@ -18,14 +18,14 @@ export default function ProfileNavBar() {
     ]
 
     const changePage = (id) => {
-        setCurrentIndex((prev)=>prev=id);
+        setCurrentIndex((prev)=>id);
         if(id === 1) route.replace('/event/profile')
-        if(id === 2) route.replace('profile/update')
+        if(id === 2) route.push('/event/profile/update')
     }
 
     const Logout = async () => {
-        const user = localStorage.getItem('token');
-        if(!user){
+        const token = localStorage.getItem('token');
+        if(!token){
             alert('You are not logged in')
             return
         }
@@ -34,16 +34,13 @@ export default function ProfileNavBar() {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user}`,
+                'Authorization': `Bearer ${token}`,
             }
         })
-
-        const data = await response.json()
 
         if(response.status === 204){
             localStorage.removeItem('token');
             localStorage.removeItem('cart');
-            alert(`${data['message']}`)
             route.push('/')
         }else{
             alert(`${data['detail']}`)

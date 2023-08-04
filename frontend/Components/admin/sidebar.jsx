@@ -9,7 +9,7 @@ export default function SideBar() {
     const [value, setValue] = useState(0);
 
     const onChange = (value) => {
-        setValue((prev)=>prev=value);
+        setValue((prev)=>value);
     }
     const pages = [
         {

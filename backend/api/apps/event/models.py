@@ -113,7 +113,7 @@ class Transaction(models.Model):
     )
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    amount = models.IntegerField()
+    amount = models.IntegerField(default=0)
     status = models.CharField(max_length=250, choices=Status, default='1')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -168,3 +168,10 @@ def parking_signal(sender, instance, created, **kwargs):
         for i in range(1, instance.capacity + 1):
             a = f'AB{i/2}'
             ParkingLot.objects.create(event=instance, name=f'Lot{i if i >= 30 else a}', price=10)
+            
+
+# ticket signal function
+@receiver(post_save, sender=Ticket)
+def trancation_signal(sender, instance, created, **kwargs):
+    if created:
+        Transaction.objects.create(ticket=instance, user=instance.user)

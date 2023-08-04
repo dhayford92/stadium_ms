@@ -1,7 +1,7 @@
 'use client'
 import React, {useEffect, useState} from 'react'
 import { useRouter } from 'next/navigation'
-import { GetCart } from '@/Utils/ClientServer/event_server';
+import { GetCart, Checkout } from '@/Utils/ClientServer/event_server';
 import Image from 'next/image';
 
 
@@ -12,12 +12,24 @@ export default function CheckOut({params}) {
     const [cart, setCart] = useState({
         event: {},
         quantity: 0,
+        qr_code: '',
         total: 0,
     });
 
     const submitPayment = (e)=> {
         e.preventDefault();
-        route.push('success')
+        Checkout(localStorage.getItem('token'), params.id).then((data)=>{
+            if(data['message'] || data['detail']){
+                alert(data['message'] || data['detail'])
+                route.push('success')
+            }else{
+                alert(data['message'])
+                route.push('success')
+            }
+        }).catch((error)=>{
+            alert(error)
+        });
+        
     }
 
     useEffect(() => {
@@ -85,7 +97,7 @@ export default function CheckOut({params}) {
                     <h3 className="text-lg font-semibold mb-4">Order Summary</h3>
                     <div className="flex flex-col space-y-5 items-center justify-start mb-2">
                         <div className='mb-3 w-full h-[100px] relative overflow-hidden p-1'>
-                            <Image alt={cart.event['title']} className='absolute object-contain object-center' src={cart.event['image']} fill={true}/>
+                            <Image alt={cart.event['title']} className='absolute object-contain object-center' src={'http://127.0.0.1:8000'+cart.qr_code} fill={true}/>
                         </div>
                         <span className='text-2xl font-semibold'>{cart.event['title']}</span>
                         <span className='text-sm'>Quantity: {cart.quantity}</span>

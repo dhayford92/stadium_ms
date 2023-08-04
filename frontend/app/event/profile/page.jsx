@@ -1,36 +1,57 @@
 'use client'
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { BsSearch } from "react-icons/bs";
 import { useRouter } from 'next/navigation';
+import { GetHomeTransaction } from '@/Utils/ClientServer/event_server';
 
 export default function Transaction() {
     const route = useRouter();
 
-    const data = [
+    const [data, setData] = useState(
         {
-          id: '123456',
-          date: '2023-06-25',
-          status: 'Completed',
-          total: 'GH₵50.0',
-        },
-        {
-          id: '789012',
-          date: '2023-06-26',
-          status: 'Pending',
-          total: 'GH₵30.0',
-        },
-      ];
+            ticket_count: 0,
+            refund_count: 0,
+            transactions: [
+                {
+                  ticket: {
+                    ticket_id: "",
+                  },
+                  status: "",
+                  amount: "",
+                  created_at: "",
+                },
+            ]
+        }
+    )
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if(!token){
+            alert('You are not logged in')
+            route.push('/')
+        }
+        GetHomeTransaction(token).then((data)=>{
+            if(data['message'] || data['detail']){
+                alert(data['message'] || data['detail'])
+            }else{
+              console.log(data)
+                setData(data)
+            }
+        }).catch((error)=>{
+            alert(error)
+        });
+    }, []);
 
   return (
     <div className='w-full md:w-1/2 space-y-5'>
         <div className='flex flex-col spcae-y-5 md:justify-between md:flex-row md:space-y-0 md:space-x-5'>
             <div className='p-3 w-full md:w-1/2 rounded-lg shadow-lg shadow-slate-200'>
                 <h1 className='font-semibold text-xl text-start'>Tickets</h1>
-                <h1 className='font-bold text-4xl mt-3'>2</h1>
+                <h1 className='font-bold text-4xl mt-3'>{data.ticket_count}</h1>
             </div>
             <div className='p-3 w-full md:w-1/2 rounded-lg shadow-lg shadow-slate-200'>
                 <h1 className='font-semibold text-xl text-start'>Refunds</h1>
-                <h1 className='font-bold text-4xl mt-3'>0</h1>
+                <h1 className='font-bold text-4xl mt-3'>{data.refund_count}</h1>
             </div>
         </div>
         <div className='relative w-full pl-5 md:pl-0 max-w-xl mr-6 focus-within:text-slate-500'>
@@ -61,19 +82,19 @@ export default function Transaction() {
             </tr>
           </thead>
           <tbody className="text-gray-600">
-            {data.map((item) => (
+            {data.transactions.map((item) => (
               <tr key={item.id}>
-                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.date}</td>
+                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.ticket['ticket_id']}</td>
+                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.created_at}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.status}</td>
-                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.total}</td>
+                <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.amount}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
                   <button onClick={()=>route.push('invoice')} className="text-slate-500 hover:underline focus:outline-none">
                     View
                   </button>
-                  <button onClick={()=>route.push('/event/checkout')} className="ml-2 text-red-500 hover:underline focus:outline-none">
+                  {item.status === 'Pending' && <button onClick={()=>route.push('/event/checkout')} className="ml-2 text-red-500 hover:underline focus:outline-none">
                     Pay
-                  </button>
+                  </button>}
                 </td>
               </tr>
             ))}

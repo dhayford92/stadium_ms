@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Ticket, ParkingLot
+from .models import *
 
 
 
@@ -28,3 +28,7 @@ class TicketAdmin(admin.ModelAdmin):
 admin.site.register(Event, EventAdmin)
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(ParkingLot)
+admin.site.register(Transaction)
+admin.site.register(Refund)
+
+admin.site.site_header = 'Event Management System'

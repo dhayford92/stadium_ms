@@ -24,6 +24,7 @@ urlpatterns = [
     path('panel', admin.site.urls),
     path('api/user/', include('apps.users.urls'), name='user'),
     path('api/core/', include('apps.event.urls'), name='core'),
+    path('api/admin/', include('apps.admin.urls'), name='Admin'),
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
 

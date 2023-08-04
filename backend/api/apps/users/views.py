@@ -17,8 +17,6 @@ class RegisterAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     
-
-
 # --- login view api 
 class LoginAPIView(generics.GenericAPIView):
     serializer_class = LoginSerializer
@@ -65,3 +63,4 @@ class UserDetailAPIView(generics.GenericAPIView):
     admin side of the app is not yet implemented
 
 '''
+

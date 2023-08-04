@@ -1,4 +1,41 @@
-import { revalidatePath } from "next/cache"
+// -- get user detail --
+export const GetUserDetail = async (token) => {
+    const response = await fetch('http://127.0.0.1:8000/api/user/client/detail/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}
+
+// --- Update User Detail ---
+export const UpdateUserDetail = async (token, body) => {
+    const response = await fetch('http://127.0.0.1:8000/api/user/client/detail/', {
+        method: 'PUT',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}
+
+
 
 
 export const GetAllEvents = async (token) => {
@@ -74,5 +111,39 @@ export const GetCart = async (token, id) => {
     }
 }
 
+// --- Make transaction ---
+export const Checkout = async (token, id) => {
+    const response = await fetch('http://127.0.0.1:8000/api/core/checkout/'+id+'/',{
+        method: 'Post',
+        // body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }else{
+        return data
+    }
+}
 
-// --- Delete Cart ---
+
+// --- Get Home Transaction ---
+export const GetHomeTransaction = async (token) => {
+    const response = await fetch('http://127.0.0.1:8000/api/core/profile/home/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}
