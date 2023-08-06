@@ -44,8 +44,8 @@ export default function Home() {
       <div className='flex-1 h-full max-w-4xl mx-auto overflow-hidden bg-white rounded-lg shadow-xl'>
         <div className='flex flex-col overflow-y-auto md:flex-row'>
           {/* image side  */}
-          <div className='overflow-hidden h-30 md:h-auto md:w-1/2 relative object-contain'>
-            <Image className='absolute h-30 md:h-auto md:w-1/2' src='/login.png' alt='login' fill={true}/>
+          <div className='overflow-hidden h-30 md:h-auto md:w-1/2 relative object-contain object-center'>
+            <Image className='absolute md:h-auto md:w-1/2' src='/bg.png' alt='login' fill={true}/>
           </div>
           {/* login form side  */}
           <div className='w-full p-5 md:w-1/2 md:p-24 rounded-2xl md:rounded-0 flex flex-col'>

@@ -1,11 +1,45 @@
+'use client'
 import Link from 'next/link';
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { BsSearch } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
+import { useRouter } from 'next/navigation';
+import { GetAllUsers, DeleteUser } from '@/Utils/AdminServer/user_server';
 import Paginator from '@/Components/admin/paginator';
 
 export default function Users() {
-  const currentIndex = '1';
+  const route = useRouter();
+  const [currentIndex, setCurrentIndex] = useState('1');
+  const [data, setData] = useState([]);
+
+  const deleteUser = (id) => {
+    const token = localStorage.getItem('token');
+    DeleteUser(token, id).then((data)=>{
+      alert(data['message'])
+      window.location.reload()
+    }).catch((error)=>{
+      alert(error)
+    });
+  }
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      alert('You are not logged in')
+      route.push('/')
+    }
+    GetAllUsers(token).then((user)=>{
+      if(user['message'] || user['detail']){  
+        alert(user['message'] || user['detail'])
+      }else{
+        setData(user)
+      }
+    }).catch((error)=>{
+      alert(error)
+    });
+  }, []);
+
   return (
     <main className='h-full overflow-y-auto'>
       <div className='container px-6 mx-auto grid'>
@@ -14,13 +48,13 @@ export default function Users() {
         </h2>
         {/* Search */}
         <div className="mt-5 flex items-center justify-between mb-6">
-            <button className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>Add New User</button>
+            <button onClick={()=>route.push('users/add')}
+            className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>Add New User</button>
           <div className='relative w-full pl-5 md:pl-0 max-w-xl mr-6 focus-within:text-slate-500'>
             <BsSearch size={25} className='absolute inset-y-0 flex items-center pl-2 pt-2'/>
             <input type='text' className='pt-1 pb-1 w-full h-fit pl-10 pr-2 text-md text-gray-700 placeholder-gray-600 bg-slate-200 border-0 rounded-md focus:placeholder-slate-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-sm focus:shadow-slate-300' placeholder='search for users'/>
           </div>
         </div>
-          
          {/* Table of transactions */}
         <div className="w-full overflow-hidden rounded-lg shadow-xs">
           <div className="w-full overflow-x-auto">
@@ -30,38 +64,44 @@ export default function Users() {
                   <th className="px-4 py-3">Fullname</th>
                   <th className="px-4 py-3">Email</th>
                   <th className="px-4 py-3">Phone Number</th>
+                  <th className="px-4 py-3">Employee</th>
                   <th className="px-4 py-3">Login Date</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y">
-              <tr className="text-gray-700">
-                <td className="px-4 py-3">
-                    <div className="flex items-center text-sm">
-                        <div className="relative hidden w-5 h-5 mr-3 rounded-full md:block">
-                            <FaUserAlt className="w-full h-full rounded-full"/>
-                            <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"/>
-                            </div>
-                            <div>
-                            <p className="font-semibold">Hans Burger</p>
-                        </div>
-                    </div>
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    example@mail.com
-                </td>
-                <td className="px-4 py-3 text-xs">
-                    <span className=''>
-                        233 239403923
-                    </span>
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    6/10/2020
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    <Link href='' className=' text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
-                    <Link href='' className='ml-2 text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
-                </td>
+              {data.map((user, index)=>(
+                <tr key={index} className="text-gray-700">
+                  <td className="px-4 py-3">
+                      <div className="flex items-center text-sm">
+                          <div className="relative hidden w-5 h-5 mr-3 rounded-full md:block">
+                              <FaUserAlt className="w-full h-full rounded-full"/>
+                              <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"/>
+                              </div>
+                              <div>
+                              <p className="font-semibold">{user.fullname}</p>
+                          </div>
+                      </div>
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                      {user.email}
+                  </td>
+                  <td className="px-4 py-3 text-xs">
+                      <span className=''>
+                          {user.number}
+                      </span>
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                      {user.is_staff? 'Yes': 'No'}
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                      {user.last_login}
+                  </td>
+                  <td className="px-4 py-3 text-sm">
+                      <Link href={`/dashboard/users/${user.id}`} className=' text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
+                      <Link onClick={()=>deleteUser(user.id)} href='' className='ml-2 text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
+                  </td>
                 </tr>
+              ))}
               </tbody>
             </table>
           </div>

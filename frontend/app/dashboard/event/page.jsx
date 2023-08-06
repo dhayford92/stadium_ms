@@ -1,10 +1,47 @@
+'use client'
 import Paginator from '@/Components/admin/paginator';
 import Link from 'next/link';
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { BsSearch } from "react-icons/bs";
+import { GetALLAdminEvents, DeleteEvent } from '@/Utils/AdminServer/admin_events';
+import { useRouter } from 'next/navigation';
+
 
 export default function Events() {
-    const currentIndex = '1';
+  const currentIndex = '1';
+  const route = useRouter();
+  const [data, setData] = useState([]);
+
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if(!token){
+        alert('You are not logged in')
+        route.push('/')
+    }
+    GetALLAdminEvents(token).then((data)=>{
+        if(data['message'] || data['detail']){
+            alert(data['message'] || data['detail'])
+        }else{
+            setData(data)
+        }
+    }).catch((error)=>{
+        alert(error)
+    });
+  }, []);
+
+
+  const deleteEvent = (id) => {
+    const token = localStorage.getItem('token');
+
+    DeleteEvent(token, id).then((data)=>{
+        alert(data['message'])
+        window.location.reload()
+    }).catch((error)=>{
+        alert(error)
+    });
+  }
+
   return (
     <main className='h-full overflow-y-auto'>
       <div className='container px-6 mx-auto grid'>
@@ -13,7 +50,8 @@ export default function Events() {
         </h2>
         {/* Search */}
         <div className="mt-5 flex items-center justify-between mb-6">
-            <button className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>
+            <button onClick={()=> route.push('/dashboard/event/add')}
+            className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>
                 Add New Event
             </button>
           <div className='relative w-full pl-5 md:pl-0 max-w-xl mr-6 focus-within:text-slate-500'>
@@ -32,33 +70,39 @@ export default function Events() {
                   <th className="px-4 py-3">Title</th>
                   <th className="px-4 py-3">Price</th>
                   <th className="px-4 py-3">Location</th>
+                  <th className="px-4 py-3">Capacity</th>
                   <th className="px-4 py-3">Date</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y">
-              <tr className="text-gray-700">
-                <td className="px-4 py-3 text-sm">
-                    0
-                </td>
-                <td className="px-4 py-3">
-                  <h1 className="font-semibold">Hans Burger</h1>
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    Ghc 123.00
-                </td>
-                <td className="px-4 py-3 text-xs">
-                    <span className=''>
-                        Greater Accra, Tesano
-                    </span>
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    6/10/2020
-                </td>
-                <td className="px-4 py-3 text-sm">
-                    <Link href='' className=' text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
-                    <Link href='' className='ml-2 text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
-                </td>
-                </tr>
+                {data.map((event, index)=>(
+                  <tr key={index} className="text-gray-700">
+                    <td className="px-4 py-3 text-sm">{event.id}</td>
+                    <td className="px-4 py-3">
+                      <h1 className="font-semibold">{event.title}</h1>
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                        Ghc {event.price}
+                    </td>
+                    <td className="px-4 py-3 text-xs">
+                        <span className=''>
+                            {event.location}
+                        </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                        {event.capacity}
+                    </td>
+                    <td className="px-4 py-3 text-sm">
+                        {event.date} {event.time}
+                    </td>
+                    <td className="px-4 py-3 text-sm flex items-center">
+                        <Link href={`event/`+event.id} className=' text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
+                        <div onClick={()=>deleteEvent(event.id)}>
+                          <Link href='' className='ml-2 text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
+                        </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

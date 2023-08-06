@@ -22,13 +22,31 @@ class TicketAdmin(admin.ModelAdmin):
         model = Ticket
         fields = '__all__'
         
+
+
+class ParkingLotAdmin(admin.ModelAdmin):
+    list_display = ('event', 'user', 'created_at')
+    list_filter = ('event', 'created_at')
+    search_fields = ('event', 'user')
+    
+    class Meta:
+        model = ParkingLot
+        fields = '__all__'
+        
+        
+
+
+        
         
 
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Ticket, TicketAdmin)
-admin.site.register(ParkingLot)
+admin.site.register(ParkingLot, ParkingLotAdmin)
 admin.site.register(Transaction)
 admin.site.register(Refund)
 
-admin.site.site_header = 'Event Management System'
+admin.site.site_header = 'Stadium Management System'
+admin.site.site_title = 'Stadium Management System'
+admin.site.index_title = 'Stadium Management System'
+admin.site.site_url = 'http://localhost:3000/event'

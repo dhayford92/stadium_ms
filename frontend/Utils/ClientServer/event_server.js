@@ -38,12 +38,11 @@ export const UpdateUserDetail = async (token, body) => {
 
 
 
-export const GetAllEvents = async (token) => {
+export const GetAllEvents = async () => {
     const response = await fetch('http://127.0.0.1:8000/api/core/events/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
         }
     })
     const data = await response.json()
@@ -56,12 +55,11 @@ export const GetAllEvents = async (token) => {
 }
 
 
-export const GetEvent = async (token, id) => {
+export const GetEvent = async (id) => {
     const response = await fetch('http://127.0.0.1:8000/api/core/event/'+id+'/',{
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
         },
     })
     const data = await response.json()

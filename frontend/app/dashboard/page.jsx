@@ -3,9 +3,15 @@ import SummaryCard from '@/Components/admin/summary_card'
 import TableField from '@/Components/admin/tablefield'
 import React, {useEffect, useState} from 'react'
 import { BsSearch } from "react-icons/bs";
+import Paginator from '@/Components/admin/paginator'
+import { useRouter } from 'next/navigation';
+import { GetDashboard } from '@/Utils/AdminServer/core_server';
 
 
 export default function Dashboard() {
+  const route = useRouter();
+  const [currentIndex, setCurrentIndex] = useState('1');
+
   const [data, setData] = useState({
     total_clients: 0,
     account_balance: 0,
@@ -20,7 +26,9 @@ export default function Dashboard() {
         }, 
         amount: 0,
         ticket: {
-          title: "",
+          event: {
+            title: "",
+          },
           quantity: 0,
         }
 
@@ -30,6 +38,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    if(!token){
+        alert('You are not logged in')
+        route.push('/')
+    }
+    GetDashboard(token).then((data)=>{
+        if(data['message'] || data['detail']){
+            alert(data['message'] || data['detail'])
+        }else{
+            setData(data)
+        }
+    }
+    ).catch((error)=>{
+        alert(error)
+    }
+    );
+    
   }, [])
 
   return (
@@ -104,7 +128,7 @@ export default function Dashboard() {
                   data.transactions.map((trans, index)=>(
                     <TableField key={index} 
                     fullname={trans.user.fullname} 
-                    ticket={trans.ticket.title}
+                    ticket={trans.ticket.event.title}
                     qty={trans.ticket.quantity}
                     total={trans.amount}
                     status={trans.status}
@@ -141,32 +165,13 @@ export default function Dashboard() {
                     </button>
                   </li>
                   <li>
-                    <button
-                      className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                    >
-                      1
-                    </button>
+                   <Paginator value='1' currentIndex={currentIndex}/>
                   </li>
                   <li>
-                    <button
-                      className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                    >
-                      2
-                    </button>
+                   <Paginator value='2' currentIndex={currentIndex}/>
                   </li>
                   <li>
-                    <button
-                      className="px-3 py-1 text-white transition-colors duration-150 bg-purple-600 border border-r-0 border-purple-600 rounded-md focus:outline-none focus:shadow-outline-purple"
-                    >
-                      3
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      className="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple"
-                    >
-                      4
-                    </button>
+                   <Paginator value='3' currentIndex={currentIndex}/>
                   </li>
                   <li>
                     <button

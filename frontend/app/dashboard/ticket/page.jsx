@@ -1,8 +1,10 @@
+'use client';
 import Paginator from '@/Components/admin/paginator';
 import Link from 'next/link';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { BsSearch } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
+import { DeleteTicket, GetAdminTicket } from '@/Utils/AdminServer/ticket_server';
 import SummaryCard from '@/Components/admin/summary_card';
 
 
@@ -10,6 +12,59 @@ export default function Events() {
     const style = " px-2 py-1 font-semibold leading-tight rounded-full"
     const currentIndex = '1';
     let status = 'Booked';
+
+    const [data, setData] = useState({
+      total_account: 0,
+      tickets_sales: 0,
+      tickets_refund: 0,
+      tickets: [
+        {
+          id: 0,
+          event: {title: ''},
+          ticket_id: 0,
+          user: { fullname: '' },
+          seat: '',
+          total: 0,
+          status: '',
+          quantity: 0,
+          is_refund: false,
+      }
+      ]
+    });
+
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      if(!token){
+          alert('You are not logged in')
+          route.push('/')
+      }
+      GetAdminTicket(token).then((data)=>{
+          if(data['message'] || data['detail']){
+              alert(data['message'] || data['detail'])
+          }else{
+              setData(data)
+          }
+      }).catch((error)=>{
+          alert(error)
+      });
+    }, []);
+
+
+    const deleteTicket = (id)=>{
+      const token = localStorage.getItem('token');
+      DeleteTicket(token, id).then((data)=>{
+          if(data['message'] || data['detail']){
+              alert(data['message'] || data['detail'])
+              window.location.reload()
+          }else{
+              alert('Ticket deleted successfully')
+              window.location.reload()
+          }
+      }).catch((error)=>{
+          alert(error)
+      });
+    }
+
   return (
     <main className='h-full overflow-y-auto'>
       <div className='container px-6 mx-auto grid'>
@@ -26,7 +81,7 @@ export default function Events() {
                   clip-rule="evenodd"
                 ></path>
               </svg>
-            </div>} title='Total Account' subtitle='Ghc 46,760.89'/>
+            </div>} title='Total Account' subtitle={'Ghc '+data.total_account}/>
             <SummaryCard 
               icon={<div className="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -34,7 +89,7 @@ export default function Events() {
                     d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
                   ></path>
                 </svg>
-              </div>} title='Tickets sales' subtitle='760.89'/>
+              </div>} title='Tickets sales' subtitle={data.tickets_sales}/>
               <SummaryCard 
               icon={<div className="p-3 mr-4 text-red-500 bg-blue-100 rounded-full">
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -42,7 +97,7 @@ export default function Events() {
                     d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
                   ></path>
                 </svg>
-              </div>} title='Tickets Refund' subtitle='760.89'/>
+              </div>} title='Tickets Refund' subtitle={data.tickets_refund}/>
         </div>
         {/* Search */}
         <div className="mt-5 flex items-center justify-between mb-6">
@@ -66,40 +121,45 @@ export default function Events() {
                   <th className="px-4 py-3">Price</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Event name</th>
-                  <th className="px-4 py-3">Date</th>
+                  <th className="px-4 py-3">Seat</th>
+                  <th className="px-4 py-3">Qty</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y">
-              <tr className="text-gray-700">
+              {data.tickets.map((ticket, index)=>(
+              <tr key={index} className="text-gray-700">
                 <td className="px-4 py-3 text-sm">
-                    0293455
+                    {ticket.ticket_id}
                 </td>
                 <td className="px-4 py-3">
-                  <h1 className="font-semibold">Den Arn Hay</h1>
+                  <h1 className="font-semibold">{ticket.user.fullname}</h1>
                 </td>
                 <td className="px-4 py-3 text-sm">
-                    Ghc 123.00
+                    Ghc {ticket.total}
                 </td>
                 <td className="px-4 py-3 text-xs">
-                    <span className={status==='Approved'?"text-green-700 bg-green-100"+style:status==='Pending'? "text-orange-700 bg-orange-100"+style:
-                            status==='Denied'?"text-red-700 bg-red-100"+style:"text-gray-700 bg-gray-100"+style}>
-                        {status}
+                    <span className={ticket.status==='Approved'?"text-green-700 bg-green-100"+style:ticket.status==='Pending'? "text-orange-700 bg-orange-100"+style:
+                            ticket.status==='Denied'?"text-red-700 bg-red-100"+style:"text-gray-700 bg-gray-100"+style}>
+                        {ticket.status}
                     </span>
                 </td>
                 <td className="px-4 py-3 text-xs">
-                    <span className=''>
-                        Sport Event
-                    </span>
+                    {ticket.event.title}
                 </td>
                 <td className="px-4 py-3 text-sm">
-                    6/10/2020
+                    {ticket.seat}
                 </td>
                 <td className="px-4 py-3 text-sm">
-                    <Link href='' className='text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
-                    <Link href='' className='ml-2 text-blue-500 hover:underline transition ease-in duration-300'>Refund</Link>
-                    <Link href='' className='ml-2 text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
+                    {ticket.quantity}
                 </td>
-                </tr>
+                <td className="px-4 py-3 text-sm">
+                    <Link href={`ticket/`+ticket.id} className='text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
+                    {ticket.is_refund && <Link href='' className='ml-2 text-blue-500 hover:underline transition ease-in duration-300'>Refund</Link>}
+                    <div className='ml-2 inline-block' onClick={()=>deleteTicket(ticket.id)}>
+                      <Link href='' className='text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
+                    </div>
+                </td>
+              </tr>))}
               </tbody>
             </table>
           </div>

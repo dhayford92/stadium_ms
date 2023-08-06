@@ -2,13 +2,18 @@ from rest_framework import serializers
 from .models import User
 
 
+
+class DateTimeFieldWithCustomFormat(serializers.DateTimeField):
+    def to_representation(self, value):
+        return value.strftime('%Y-%m-%d %H:%M:%S')
+
 # --- register serializer
 class UserRegsiter(serializers.ModelSerializer):
     password = serializers.CharField(min_length=3, write_only=True)
     
     class Meta:
         model = User
-        fields = ['fullname', 'email', 'number', 'password']
+        fields = ['fullname', 'email', 'number', 'password', 'is_staff']
         
     def validate(self, attrs):
         email = attrs.get('email', None)
@@ -47,11 +52,10 @@ class LoginSerializer(serializers.ModelSerializer):
     
 # --- user serializer
 class UserSerializer(serializers.ModelSerializer):
+    last_login = DateTimeFieldWithCustomFormat()
+    
     class Meta:
         model = User
-        fields = ['id', 'fullname', 'email', 'number', 'is_staff']
-        read_only_fields = ['id', 'email', 'is_staff']
+        fields = ['id', 'fullname', 'email', 'number', 'is_staff', 'last_login']
+        read_only_fields = ['id', 'last_login', 'email']
 
-
-
-# Compare this snippet from backend\api\apps\users\models.py:

@@ -34,6 +34,10 @@ export default function EventDetail({params}) {
   const addtoCart = () => {
         const body = {quantity: quantity}
         const token = localStorage.getItem('token');
+        if(!token){
+            alert('You are not logged in')
+            route.push('/') 
+        }
 
         AddtoCart(token, params.id, body).then((data)=>{
             alert(data['message'])
@@ -44,12 +48,7 @@ export default function EventDetail({params}) {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if(!token){
-        alert('You are not logged in')
-        route.push('/') 
-    }
-    GetEvent(token, params.id).then((data)=>{
+    GetEvent(params.id).then((data)=>{
         if(data['message'] || data['detail']){
             alert(data['message'] || data['detail'])
         }else{

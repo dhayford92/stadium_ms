@@ -25,8 +25,8 @@ class UserManager(BaseUserManager):
     
     
     #---create normal user
-    def create_user(self, email=None, password=None, **kwargs):
-        return self._create_user(email, password, False, False, **kwargs)
+    def create_user(self, email=None, password=None, is_staff=None, **kwargs):
+        return self._create_user(email, password, is_staff, False, **kwargs)
 
     #---create superuser
     def create_superuser(self, email, password, **kwargs):

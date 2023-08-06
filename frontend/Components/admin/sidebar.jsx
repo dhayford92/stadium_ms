@@ -72,7 +72,7 @@ export default function SideBar() {
             <span className={value===4?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
                 aria-hidden="true"></span>
               <Link className={value===4?"text-slate-800"+style:"text-slate-500"+style}
-                href="index.html">
+                href="/dashboard/parking">
                 <FaParking className='w-4 h-4'/>
                 <span className="ml-4">Parking Space</span>
               </Link>
@@ -81,9 +81,9 @@ export default function SideBar() {
             <span className={value===5?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
                 aria-hidden="true"></span>
               <Link className={value===5?"text-slate-800"+style:"text-slate-500"+style}
-                href="/dashboard/employee">
+                href="/dashboard/refunds">
                 <FaIdCard className='w-4 h-4'/>
-                <span className="ml-4">Employees</span>
+                <span className="ml-4">Refunds</span>
               </Link>
             </li>
 

@@ -1,20 +1,36 @@
 'use client'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { BsFillPersonLinesFill, BsFilterLeft, BsCartDash } from "react-icons/bs";
+import Image from 'next/image';
 
 export default function Navbar() {
   const route = useRouter();
+  const [isActive, setActive] = useState(0);
+
+  const openProfile = () => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      alert('You are not logged in')
+      return
+    }
+    route.push('/event/profile')
+  }
+
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    if(token){
+      setActive(1)
+    }
+  },[])
 
   return (
     <nav className='h-20 p-5 w-full flex justify-between items-center sticky top-0 z-20 bg-white'>
       {/* title */}
       <div className='flex flex-row space-x-3 md:space-x-0'>
         <BsFilterLeft size={40} className='md:hidden hover:transition ease-in duration-150 hover:text-slate-400 cursor-pointer'/>
-        <h1 className='text-2xl font-bold'>
-            Event
-        </h1>
+        <Image src='/logo.png' alt='logo' width={140} height={50}/>
       </div>
         
         {/* menu list */}
@@ -31,12 +47,11 @@ export default function Navbar() {
         </div>
         
         {/* profile  */}
-        <div className='flex flex-row space-x-2 md:space-x-4'>
-          {/* <div className='pr-3 pl-3 rounded-full border-2 hover:bg-slate-500 border-slate-700 items-center hover:text-cyan-700 hover:transition ease-in duration-200 cursor-pointer'>
-              <BsCartDash onClick={()=>route.replace('event/cart')} className='h-10 text-center'/>
-          </div> */}
+        <div className='flex flex-row space-x-2 md:space-x-4 justify-center items-center'>
+          {isActive === 0 && 
+              <Link href='/' className='hover:underline font-bold hover:transition ease-in duration-200 cursor-pointer'>Login</Link>}
           <div className='pr-3 pl-3 rounded-full border-2 hover:bg-slate-500 border-slate-700 text-center hover:text-cyan-700 hover:transition ease-in duration-200 cursor-pointer'>
-            <BsFillPersonLinesFill onClick={()=>route.push('/event/profile')} className='h-10'/>
+            <BsFillPersonLinesFill onClick={()=>openProfile()} className='h-10'/>
           </div>
         </div>
         

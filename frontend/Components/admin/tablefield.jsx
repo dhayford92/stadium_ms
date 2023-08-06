@@ -34,3 +34,5 @@ export default function TableField({fullname, qty, ticket, total, status, date})
     </tr>
   )
 }
+
+

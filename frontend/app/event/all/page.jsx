@@ -12,13 +12,7 @@ export default function AllEvents() {
     const route = useRouter();
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        console.log(token)
-        if(!token){
-            alert('You are not logged in')
-            route.push('/') 
-        }
-        GetAllEvents(token).then((data)=>{
+        GetAllEvents().then((data)=>{
             if(data['message'] || data['detail']){
                 alert(data['message'] || data['detail'])
             }else{

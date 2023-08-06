@@ -17,24 +17,22 @@ export default function navbar() {
     }
 
     const Logout = async () => {
-        const user = localStorage.getItem('user');
-        if(!user){
+        const token = localStorage.getItem('token');
+        if(!token){
             alert('You are not logged in')
             return
         }
-        console.log(user)
         const response = await fetch('http://127.0.0.1:8000/api/user/logout/', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${user['token']}`,
+                'Authorization': `Bearer ${token}`,
             }
         })
-        const data = await response.json();
         if(response.status === 204){
-            localStorage.removeItem('user');
+            localStorage.removeItem('token');
             route.push('/')
-            alert(`${data['message']}`)
+            alert(`Logged out successfully`)
         }else{
             alert(`${data['detail']}`)
         }

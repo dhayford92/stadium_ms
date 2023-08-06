@@ -10,7 +10,15 @@ export default function Event() {
     const route = useRouter();
     const [searchItem, setSearchItem] = useState('');
     const [filteredData, setFilteredData] = useState([]);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([
+        {
+            id: 0,
+            title: '',
+            image: '',
+            price: '',
+            date: '',
+        }
+    ]);
 
     const setFilter = (e) => {
         e.preventDefault();
@@ -20,13 +28,7 @@ export default function Event() {
     
     
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        console.log(token)
-        if(!token){
-            alert('You are not logged in')
-            route.push('/') 
-        }
-        GetAllEvents(token).then((data)=>{
+        GetAllEvents().then((data)=>{
             if(data['message'] || data['detail']){
                 alert(data['message'] || data['detail'])
             }else{

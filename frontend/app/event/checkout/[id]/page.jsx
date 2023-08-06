@@ -21,10 +21,10 @@ export default function CheckOut({params}) {
         Checkout(localStorage.getItem('token'), params.id).then((data)=>{
             if(data['message'] || data['detail']){
                 alert(data['message'] || data['detail'])
-                route.push('success')
+                route.push('/event/success')
             }else{
                 alert(data['message'])
-                route.push('success')
+                route.push('/event/success')
             }
         }).catch((error)=>{
             alert(error)

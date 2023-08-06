@@ -15,8 +15,8 @@ from django.dispatch import receiver
 
 class Event(models.Model):
     EventType = (
-        ('1', 'Sports'),
-        ('2', 'Concert')
+        ('Sports', 'Sports'),
+        ('Concert', 'Concert')
     )
     image = models.ImageField(upload_to='images/')
     title = models.CharField(max_length=250)
@@ -41,10 +41,10 @@ class Event(models.Model):
 # ticket model class
 class Ticket(models.Model):
     Status = (
-        ('1', 'Pending'),
-        ('2', 'Approved'),
-        ('3', 'Cancelled'),
-        ('4', 'Booked'),
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Cancelled', 'Cancelled'),
+        ('Booked', 'Booked'),
     )
     ticket_id = models.CharField(max_length=250, unique=True, editable=False)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -106,15 +106,15 @@ class ParkingLot(models.Model):
 # transaction model class
 class Transaction(models.Model):
     Status = (
-        ('1', 'Pending'),
-        ('2', 'Approved'),
-        ('3', 'Cancelled'),
-        ('4', 'Booked')
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Cancelled', 'Cancelled'),
+        ('Booked', 'Booked'),
     )
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
-    status = models.CharField(max_length=250, choices=Status, default='1')
+    status = models.CharField(max_length=250, choices=Status, default='Pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -135,13 +135,14 @@ class Transaction(models.Model):
 # refund model class
 class Refund(models.Model):
     Status = (
-        ('1', 'Pending'),
-        ('2', 'Approved'),
-        ('3', 'Cancelled'),
+        ('Pending', 'Pending'),
+        ('Approved', 'Approved'),
+        ('Cancelled', 'Cancelled'),
     )
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     user = models.ForeignKey('users.User', on_delete=models.CASCADE)
     amount = models.IntegerField()
+    status = models.CharField(max_length=250, choices=Status, default='Pending')
     is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

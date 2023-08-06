@@ -12,7 +12,6 @@ import string
 class EventListAPIView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticated]
     filter_fields = ('event_type', )
     
     def get_queryset(self):
@@ -23,7 +22,6 @@ class EventListAPIView(generics.ListAPIView):
 class EventDetailAPIView(generics.RetrieveDestroyAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'id'
     
     def get_queryset(self):

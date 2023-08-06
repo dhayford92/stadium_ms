@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 import { useRouter } from 'next/navigation';
-import { parkData } from '@/data';
 
 
 export default function ParkSlot() {
   const route = useRouter();
+  const [parkData, setParkData] = React.useState([]);
 
   return (
     <div className='flex flex-col justify-between items-center space-y-4 p-5'>

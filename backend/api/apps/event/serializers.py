@@ -1,23 +1,25 @@
 from apps.users.serializers import UserSerializer
 from rest_framework import serializers
-from .models import Event, Ticket, ParkingLot, Transaction
+from .models import Event, Refund, Ticket, ParkingLot, Transaction
 
 
 class DateTimeFieldWithCustomFormat(serializers.DateTimeField):
     def to_representation(self, value):
         return value.strftime('%Y-%m-%d %H:%M:%S')
     
-    
-    
+
+class EventTypeField(serializers.ChoiceField):
+    def to_representation(self, value):
+        return dict(self.choices)[value]
+
 
 class EventSerializer(serializers.ModelSerializer):
-    event_type = serializers.SerializerMethodField()
+    
     class Meta:
         model = Event
         fields = '__all__'
-        
-    def get_event_type(self, obj):
-        return dict(Event.EventType)[obj.event_type]
+        read_only_fields = ['created_at']
+    
     
 
 class TicketSerializer(serializers.ModelSerializer):
@@ -40,13 +42,21 @@ class ParkingLotSerializer(serializers.ModelSerializer):
         
 
 class TransactionSerializer(serializers.ModelSerializer):
-    status = serializers.SerializerMethodField()
     created_at = DateTimeFieldWithCustomFormat()
     user = UserSerializer(read_only=True)
+    ticket = TicketSerializer(read_only=True)
     class Meta:
         model = Transaction
         depth = 1
         fields = '__all__'
-        
-    def get_status(self, obj):
-        return dict(Transaction.Status)[obj.status]
+
+
+
+class RefundSerializer(serializers.ModelSerializer):
+    created_at = DateTimeFieldWithCustomFormat()
+    user = UserSerializer(read_only=True)
+    ticket = TicketSerializer(read_only=True)
+    class Meta:
+        model = Refund
+        depth = 1
+        fields = '__all__'
