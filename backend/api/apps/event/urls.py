@@ -9,5 +9,6 @@ urlpatterns = [
     path('cart/<int:id>/', CartAPIView.as_view(), name='cart'),
     path('checkout/<int:id>/', CheckoutAPIView.as_view(), name='checkout'),
     path('profile/home/', GetUserHomeAPIView.as_view(), name='profile-home'),
+    path('parklot/<str:ticket_id>', EventParkingLotAPIView.as_view()),
 ]
 

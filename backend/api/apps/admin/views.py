@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from apps.users.serializers import *
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.renderers import JSONRenderer
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 
@@ -200,3 +201,45 @@ class PayRefund(views.APIView):
         refund.is_paid = True
         refund.save()
         return Response({'message': 'Refund Paid Successfully'}, status=status.HTTP_200_OK)
+
+
+
+'''
+
+    Parking API
+
+'''
+
+class ParkingLotAPIView(generics.ListCreateAPIView):
+    # permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+    queryset = ParkingLot.objects.all().order_by('-id')
+    serializer_class = ParkingLotSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['event__id']
+    
+class ParkingLotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    # permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+    queryset = ParkingLot.objects.all()
+    serializer_class = ParkingLotSerializer
+    lookup_field = 'id'
+    
+    
+    
+    
+'''
+
+    Asset API
+
+'''
+class AssetAPIView(generics.ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+    queryset = Asset.objects.all().order_by('-id')
+    serializer_class = AssetSerializer
+    
+    
+    
+class AssetDetailAPIView(generics.RetrieveDestroyAPIView):
+    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+    queryset = Asset.objects.all()
+    serializer_class = AssetSerializer
+    lookup_field = 'id'    

@@ -20,4 +20,14 @@ urlpatterns = [
     path('refund/', RefundAPIView().as_view()),
     path('refund/<int:id>/', UpdateRefundAPIView().as_view()),
     path('refund/<int:id>/pay/', PayRefund.as_view()),
+    
+    
+    # --- parking lot api ---
+    path('parking-lot/', ParkingLotAPIView().as_view()),
+    path('parking-lot/<int:id>/', ParkingLotDetailAPIView().as_view()),
+    
+    
+    # --- asset api ---
+    path('asset/', AssetAPIView().as_view()),
+    path('asset/<int:id>/', AssetDetailAPIView().as_view()),
 ]

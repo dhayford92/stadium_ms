@@ -36,6 +36,7 @@ class TicketSerializer(serializers.ModelSerializer):
     
     
 class ParkingLotSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
     class Meta:
         model = ParkingLot
         fields = '__all__'

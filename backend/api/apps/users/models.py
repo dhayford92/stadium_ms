@@ -68,3 +68,61 @@ class User(AbstractBaseUser, PermissionsMixin):
         
     class Meta:
         db_table = 'users'
+        
+        
+        
+
+
+
+
+class Asset(models.Model):
+    Asset_type = (
+        ('Physical', 'Physical'),
+        ('Equipment', 'Equipment'),
+    )
+    Asset_Condition = (
+        ('New', 'New'),
+        ('Used', 'Used'),
+        ('Damaged', 'Damaged'),
+        ('Under Maintainace', 'Under Maintainace'),
+    )
+    name = models.CharField(max_length=250, null=True, blank=True)
+    type = models.CharField(max_length=250, null=True, blank=True, choices=Asset_type)
+    condition = models.CharField(max_length=250, null=True, blank=True, choices=Asset_Condition)
+    description = models.TextField(null=True, blank=True)
+    class Meta:
+        db_table = 'asset'
+        
+    def __str__(self):
+        return self.name
+    
+    
+    
+class Maintainace(models.Model):
+    Maintainace_type = (
+        ('Repair', 'Repair'),
+        ('Replaced', 'Replaced'),
+    )
+    Priority = (
+        ('High', 'High'),
+        ('Medium', 'Medium'),
+        ('Low', 'Low'),
+    )
+    Status = (
+        ('Pending', 'Pending'),
+        ('In Progress', 'In Progress'),
+        ('Completed', 'Completed'),
+    )
+    asignee = models.ForeignKey(User, on_delete=models.CASCADE)
+    asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
+    type = models.CharField(max_length=250, null=True, blank=True, choices=Maintainace_type)
+    priority = models.CharField(max_length=250, null=True, blank=True, choices=Priority)
+    status = models.CharField(max_length=250, null=True, blank=True, choices=Status)
+    description = models.TextField(null=True, blank=True)
+    date = models.DateField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'maintainace'
+        
+    def __str__(self):
+        return self.asignee.fullname

@@ -24,4 +24,28 @@ class UserAdmin(BaseUserAmin):
     
 
 
+
+
+class AssetAdmin(admin.ModelAdmin):
+    list_display = ('name', 'type', 'condition',)
+    list_editable = ('condition',)
+    list_filter = ('type', 'condition',)
+    
+    class Meta:
+        model = Asset
+        
+        
+class MaintenanceAdmin(admin.ModelAdmin):
+    list_display = ('asset', 'asignee', 'type', 'priority', 'status', 'date')
+    list_editable = ('asignee', 'status')
+    list_filter = ('status', 'type',)
+    
+    class Meta:
+        model = Maintainace
+
+
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Asset, AssetAdmin)
+admin.site.register(Maintainace, MaintenanceAdmin)

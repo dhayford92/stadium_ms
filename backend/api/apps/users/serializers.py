@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import *
 
 
 
@@ -59,3 +59,25 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'fullname', 'email', 'number', 'is_staff', 'last_login']
         read_only_fields = ['id', 'last_login', 'email']
 
+
+
+
+class AssetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Asset
+        fields = '__all__'
+        
+    def validate(self, attrs):
+        name = attrs.get('name', None)
+        if name is None:
+            raise ValueError('Name can not be empty')
+        return attrs
+    
+    def create(self, validated_data):
+        Asset.objects.create(**validated_data)
+        return {'message': 'Asset created successfully'}
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance

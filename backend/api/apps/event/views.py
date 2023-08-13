@@ -1,10 +1,12 @@
 from django.shortcuts import render
+from apps.users.models import User
 from rest_framework import generics, permissions, status, views
 from rest_framework.response import Response
 from .serializers import *
 from .models import *
 import random
 import string
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 
@@ -85,6 +87,39 @@ class CheckoutAPIView(views.APIView):
         ticket.save()
         return Response({'message': 'Ticket successfully paid'}, status=status.HTTP_200_OK)
     
+
+
+
+class EventParkingLotAPIView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request, ticket_id):
+        ticket = Ticket.objects.filter(ticket_id=ticket_id).prefetch_related('event').first()
+        if ticket is None:
+            return Response({'message': 'Ticket not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        event = Event.objects.filter(id=ticket.event.id).first()
+        if event is None:
+            return Response({'message': 'Event not found'}, status=status.HTTP_404_NOT_FOUND)
+        parking_lots = ParkingLot.objects.filter(event=event)
+        serializer = ParkingLotSerializer(parking_lots, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    def patch(self, request, ticket_id):
+        user = User.objects.filter(id=request.user.id).first()
+        ticket = Ticket.objects.filter(ticket_id=ticket_id).first()
+        if ticket is None:
+            return Response({'error': 'Ticket not found'}, status=status.HTTP_404_NOT_FOUND)
+        event = Event.objects.filter(id=ticket.event.id).first()
+        parking_lots = ParkingLot.objects.filter(event=event, id=request.data['parking_lot_id']).first()
+        if parking_lots is None:
+            return Response({'error': 'Parking lot not found'}, status=status.HTTP_404_NOT_FOUND)
+        parking_lots.user = user
+        parking_lots.is_booked = True
+        parking_lots.save()
+        return Response({'message': 'Done'}, status=status.HTTP_200_OK)
+    
+
     
     
 
