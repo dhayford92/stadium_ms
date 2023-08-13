@@ -14,6 +14,7 @@ export default function CheckOut({params}) {
         quantity: 0,
         qr_code: '',
         total: 0,
+        ticket_id: 0,
     });
 
     const submitPayment = (e)=> {
@@ -21,10 +22,10 @@ export default function CheckOut({params}) {
         Checkout(localStorage.getItem('token'), params.id).then((data)=>{
             if(data['message'] || data['detail']){
                 alert(data['message'] || data['detail'])
-                route.push('/event/success')
+                route.push('/event/success/'+cart.ticket_id)
             }else{
                 alert(data['message'])
-                route.push('/event/success')
+                route.push('/event/success/'+cart.ticket_id)
             }
         }).catch((error)=>{
             alert(error)

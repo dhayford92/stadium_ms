@@ -145,3 +145,42 @@ export const GetHomeTransaction = async (token) => {
         return data
     }
 }
+
+
+
+// --- Get Parking Lot ---
+export const GetParkingLot = async (token, id) => {
+    const response = await fetch('http://127.0.0.1:8000/api/core/parklot/'+id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}
+
+// -- update parking lot --
+export const UpdateParkingLot = async (token, id, body) => {
+    const response = await fetch('http://127.0.0.1:8000/api/core/parklot/'+id, {
+        method: 'PATCH',
+        body: JSON.stringify(body),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}
