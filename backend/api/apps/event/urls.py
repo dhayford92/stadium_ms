@@ -10,5 +10,6 @@ urlpatterns = [
     path('checkout/<int:id>/', CheckoutAPIView.as_view(), name='checkout'),
     path('profile/home/', GetUserHomeAPIView.as_view(), name='profile-home'),
     path('parklot/<str:ticket_id>', EventParkingLotAPIView.as_view()),
+    path('ticket/<int:id>/detail', TicketDetailAPIView.as_view()),
 ]
 

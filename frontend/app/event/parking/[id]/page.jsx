@@ -67,7 +67,7 @@ export default function ParkSlot({params}) {
         <form onSubmit={(e)=>submitTicket(e)}>
             <div className='flex flex-col md:flex-row space-y-4 md:space-x-3'>
                 <label className='font-bold text-md'>Enter Ticket ID:</label>
-                <input type='text' placeholder='Enter your ticket ID' className='ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
+                <input type='text' placeholder='Enter your ticket ID' className='ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300 bg-white'/>
             </div>
             <button type='submit' className='mt-3 button'>
                     Reserve Parking Space

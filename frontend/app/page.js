@@ -55,7 +55,7 @@ export default function Home() {
                 <span className="text-gray-700">Email</span>
                 <input                  
                   name='email'
-                  className="auth-input"
+                  className="auth-input bg-white"
                   placeholder="yourmail@mail.com"
                 />
               </label>
@@ -63,7 +63,7 @@ export default function Home() {
                 <span className="text-gray-700">Password</span>
                 <input
                   name='password'
-                  className="auth-input"
+                  className="auth-input bg-white"
                   placeholder="***************"
                   type="password"
                 />

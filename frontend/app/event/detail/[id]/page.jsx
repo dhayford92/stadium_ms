@@ -92,15 +92,15 @@ export default function EventDetail({params}) {
                 Location: <span className="font-semibold">{bookingData.location}</span>
             </p>
             <div className="mt-4 flex space-x-5">
-                <label htmlFor="quantity" className="text-gray-600 font-semibold mb-2">
+                <label htmlFor="quantity" className="text-gray-600 font-semibold mb-2 bg-white">
                     Quantity:
                 </label>
                 <input type="number" id="quantity" min="1"
                     value={quantity}
                     onChange={handleQuantityChange}
-                className="w-24 px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                className="w-24 px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"/>
             </div>
-            <button onClick={()=>addtoCart()} className="mt-5 mb-5 button">
+            <button onClick={()=>addtoCart()} className="btn">
                 Book Now
             </button>
             </div>

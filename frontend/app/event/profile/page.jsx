@@ -14,6 +14,7 @@ export default function Transaction() {
             transactions: [
                 {
                   ticket: {
+                    id: 0,
                     ticket_id: "",
                   },
                   status: "",
@@ -89,7 +90,7 @@ export default function Transaction() {
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.status}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">{item.amount}</td>
                 <td className="px-6 py-4 whitespace-nowrap border-b border-gray-200">
-                  <button onClick={()=>route.push('invoice')} className="text-slate-500 hover:underline focus:outline-none">
+                  <button onClick={()=>route.push('invoice/'+item.ticket.id)} className="text-slate-500 hover:underline focus:outline-none">
                     View
                   </button>
                   {item.status === 'Pending' && <button onClick={()=>route.push('/event/checkout')} className="ml-2 text-red-500 hover:underline focus:outline-none">

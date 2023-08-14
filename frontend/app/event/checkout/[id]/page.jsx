@@ -59,18 +59,18 @@ export default function CheckOut({params}) {
         {cart && <div className="flex flex-col md:flex-row m-5">
             <div className="md:w-1/2">
                 <h2 className="text-2xl font-bold mb-4">Checkout</h2>
-                <form className="space-y-4" onSubmit={(e)=> submitPayment(e)}>
+                <form className="space-y-4 text-slate-500" onSubmit={(e)=> submitPayment(e)}>
                     <div>
                         <label htmlFor="address" className="block text-gray-600 font-semibold mb-1">
                             Address
                         </label>
-                        <input type="text" id="address" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="text" id="address" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"/>
                     </div>
                     <div>
                     <label htmlFor="card" className="block text-gray-600 font-semibold mb-1">
                         Card Number
                     </label>
-                    <input type="text" id="card" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                    <input type="text" id="card" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"/>
                     </div>
                     <div className="flex Md:space-x-2 justify-between">
                     <div>
@@ -78,17 +78,17 @@ export default function CheckOut({params}) {
                             Expiry Date
                         </label>
                         <input type="text" id="expiry"
-                          className="w-32 px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+                          className="w-32 px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"
                         />
                     </div>
                     <div>
                         <label htmlFor="cvv" className="block text-gray-600 font-semibold mb-1">
                             CVV
                         </label>
-                        <input type="text" id="cvv" className="w-32 px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="text" id="cvv" className="w-32 px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"/>
                     </div>
                     </div>
-                    <button type="submit" className="button">
+                    <button type="submit" className="btn">
                         Place Order
                     </button>
                 </form>

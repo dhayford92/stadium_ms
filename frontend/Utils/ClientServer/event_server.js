@@ -184,3 +184,21 @@ export const UpdateParkingLot = async (token, id, body) => {
         return data
     }
 }
+
+
+// --- Detail Ticket --- \
+export const TicketDetail = async (id) => {
+    const response = await fetch('http://127.0.0.1:8000/api/core/ticket/'+id+'/detail', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+        return data
+    }
+    else{
+        return data
+    }
+}

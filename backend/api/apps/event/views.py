@@ -1,3 +1,4 @@
+from cgitb import lookup
 from django.shortcuts import render
 from apps.users.models import User
 from rest_framework import generics, permissions, status, views
@@ -29,6 +30,15 @@ class EventDetailAPIView(generics.RetrieveDestroyAPIView):
     def get_queryset(self):
         queryset = Event.objects.all()
         return queryset
+
+
+
+# --- ticket api ---
+class TicketDetailAPIView(generics.RetrieveAPIView):
+    serializer_class = TicketSerializer
+    queryset = Ticket.objects.all()
+    lookup_field = 'id'
+    
 
 
 
