@@ -81,3 +81,12 @@ class AssetSerializer(serializers.ModelSerializer):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
         return instance
+    
+    
+    
+class MaintanceSerializer(serializers.ModelSerializer):
+    asignee = UserSerializer(read_only=True)
+    asset = AssetSerializer(read_only=True)
+    class Meta:
+        model = Maintainace
+        fields = '__all__'

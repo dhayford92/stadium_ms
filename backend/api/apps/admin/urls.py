@@ -25,9 +25,16 @@ urlpatterns = [
     # --- parking lot api ---
     path('parking-lot/', ParkingLotAPIView().as_view()),
     path('parking-lot/<int:id>/', ParkingLotDetailAPIView().as_view()),
+    path('parking-lot/<int:id>/update/', UpdatePqrkingLotAPIView.as_view()),
     
     
     # --- asset api ---
     path('asset/', AssetAPIView().as_view()),
     path('asset/<int:id>/', AssetDetailAPIView().as_view()),
+    
+    # --- maintenance api ---
+    path('maintenance/', MaintanceAPIView().as_view()),
+    path('maintenance-count/', MaintenaceCount().as_view()),
+    path('maintenance/<int:id>/', MaintanceDetailAPIView().as_view()),
+    
 ]

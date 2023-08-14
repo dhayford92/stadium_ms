@@ -217,12 +217,29 @@ class ParkingLotAPIView(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['event__id']
     
-class ParkingLotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ParkingLotDetailAPIView(generics.RetrieveDestroyAPIView):
     # permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
     queryset = ParkingLot.objects.all()
     serializer_class = ParkingLotSerializer
     lookup_field = 'id'
     
+class UpdatePqrkingLotAPIView(views.APIView):
+    # permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+    queryset = ParkingLot.objects.all()
+    
+    def patch(self, request, id):
+        parking_lot = ParkingLot.objects.filter(id=id).first()
+        if parking_lot is None:
+            return Response({'message': 'Parking Lot not found'}, status=status.HTTP_404_NOT_FOUND)
+        user = User.objects.filter(id=request.data['user']).first()
+        if user is None:
+            return Response({'message': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        parking_lot.user = user
+        parking_lot.is_booked = True
+        parking_lot.save()
+        serializer = ParkingLotSerializer(parking_lot)
+        return Response(serializer.data, status=status.HTTP_200_OK) 
+        
     
     
     
@@ -232,14 +249,38 @@ class ParkingLotDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 '''
 class AssetAPIView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
     queryset = Asset.objects.all().order_by('-id')
     serializer_class = AssetSerializer
     
     
     
-class AssetDetailAPIView(generics.RetrieveDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
+class AssetDetailAPIView(generics.RetrieveUpdateAPIView):
     queryset = Asset.objects.all()
     serializer_class = AssetSerializer
     lookup_field = 'id'    
+    
+    
+
+class MaintanceAPIView(generics.ListAPIView):
+    queryset = Maintainace.objects.all().order_by('-id')
+    serializer_class = MaintanceSerializer
+
+
+class MaintenaceCount(views.APIView):
+    def get(self, request):
+        maintainaces = Maintainace.objects.all()
+        pending = maintainaces.filter(status='Pending').count()
+        completed = maintainaces.filter(status='Completed').count()
+        progress = maintainaces.filter(status='In Progress').count()
+        context = {
+            'pending': pending,
+            'completed': completed,
+            'progress': progress,
+        }
+        return Response(context, status=status.HTTP_200_OK)
+    
+    
+class MaintanceDetailAPIView(generics.UpdateAPIView):
+    queryset = Maintainace.objects.all()
+    serializer_class = MaintanceSerializer
+    lookup_field = 'id'
