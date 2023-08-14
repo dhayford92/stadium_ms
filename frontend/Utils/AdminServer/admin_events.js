@@ -111,3 +111,6 @@ export const DeleteEvent = async (token, id) => {
         return {'message': 'Event successfully deleted'}
     }
 }
+
+
+

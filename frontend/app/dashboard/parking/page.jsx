@@ -1,14 +1,15 @@
 'use client'
 import React, {useEffect, useState} from 'react'
-import { BsSearch } from "react-icons/bs";
 import Paginator from '@/Components/admin/paginator';
 import Link from 'next/link';
-import { get_park } from '@/Utils/AdminServer/park_server';
+import { get_park, delete_park_by_id } from '@/Utils/AdminServer/park_server';
 import { GetAllEvents } from '@/Utils/ClientServer/event_server';
+import { useRouter } from 'next/navigation';
 
 
 export default function ParkPage() {
     const style = " px-2 py-1 font-semibold leading-tight rounded-full"
+    const route = useRouter();
     const [data, setData] = useState([
         {
             id: 1,
@@ -21,6 +22,12 @@ export default function ParkPage() {
     const [search, setSearch] = useState(1);
     const [currentIndex, setPage] = useState('1');
 
+    const delete_park = (id) => {
+        delete_park_by_id(id).then((data) => {
+            window.location.reload();
+        });
+    };
+
     useEffect(() => {
         GetAllEvents().then((res) => {
             setEvent(res);
@@ -30,7 +37,6 @@ export default function ParkPage() {
         });
         get_park(search).then((res) => {
             setData(res);
-            console.log(res);
         }
         ).catch((err) => {
             console.log(err);
@@ -46,13 +52,20 @@ export default function ParkPage() {
             </h2>
             <hr className="my-4"/>
             <div className="mt-5 flex items-start md:items-center md:justify-between mb-6 flex-col space-y-4 md:flex-row">
-                <button className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>
-                    Add New Parking Solt
-                </button>
-                <div className='relative w-full pl-5 md:pl-0 max-w-xl focus-within:text-slate-500'>
-                    <BsSearch size={25} className='absolute inset-y-0 flex items-center pl-2 pt-2'/>
-                    <input type='text' className='pt-1 pb-1 w-full h-fit pl-10 pr-2 text-md text-gray-700 placeholder-gray-600 bg-slate-200 border-0 rounded-md focus:placeholder-slate-500 focus:bg-white focus:border-purple-300 focus:outline-none focus:shadow-sm focus:shadow-slate-300' placeholder='search for parking space'/>
+                
+            <form>   
+                <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative w-[500px]">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required/>
+                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
+            </form>
+
             </div>
             <hr className="my-4"/>
             <div className="w-full flex space-x-5  overflow-hidden rounded-lg shadow-xs">
@@ -102,8 +115,8 @@ export default function ParkPage() {
                             </td>
                             <td className="px-4 py-3 text-sm">
                                 <Link href={`parking/`+park.id} className='text-purple-500 hover:underline transition ease-in duration-300'>View</Link>
-                                <div className='ml-2 inline-block'>
-                                <Link href='' className='text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
+                                <div onClick={()=>delete_park(park.id)} className='ml-2 inline-block'>
+                                 <Link href='' className='text-red-500 hover:underline transition ease-in duration-300'>Delete</Link>
                                 </div>
                             </td>
                         </tr>))}

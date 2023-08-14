@@ -1,28 +1,9 @@
-const park_server = 'http://127.0.0.1:8000/api/admin/';
+const baseUrl = 'http://127.0.0.1:8000/api/admin/';
 
 
-// Path: frontend\Utils\AdminServer\park_server.js
-
-// Create park
-export const create_park = (data) => {
-    const response = fetch(park_server + 'parking-lot/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).then(response => response.json())
-        .then(data => {
-            return data;
-        }).catch((error) => {
-            console.error('Error:', error);
-    });
-};
-
-
-// Get all park
-export const get_park = (event) => {
-    const response = fetch(park_server + 'parking-lot/?event__id='+event, {
+// Get All Assets
+export const get_assets = () => {
+    const response = fetch(baseUrl + 'asset/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -37,9 +18,26 @@ export const get_park = (event) => {
 };
 
 
-// Get park by id
-export const get_park_by_id = (id) => {
-    const response = fetch(park_server + 'parking-lot/' + id, {
+
+// Get All maintenance
+export const get_maintenance = () => {
+    const response = fetch(baseUrl + 'maintenance/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    }).then(response => response.json())
+        .then(data => {
+            return data;
+        }).catch((error) => {
+            console.error('Error:', error);
+    });
+    return response;
+}
+
+// get maintenance counts 
+export const get_maintenance_counts = () => {
+    const response = fetch(baseUrl + 'maintenance-count', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -54,26 +52,9 @@ export const get_park_by_id = (id) => {
 }
 
 
-// Delete park by id
-export const delete_park_by_id = (id) => {
-    const response = fetch(park_server + 'parking-lot/' + id, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }).then(response => response.json())
-        .then(data => {
-            return data;
-        }).catch((error) => {
-            console.error('Error:', error);
-    });
-    return response;
-}
-
-
-// Update park by id
-export const update_park_by_id = (id, data) => {
-    const response = fetch(park_server + 'parking-lot/' + id, {
+// update maintenance
+export const update_maintenance = (id, data) => {
+    const response = fetch(baseUrl + 'maintenance/' + id + '/', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -87,5 +68,3 @@ export const update_park_by_id = (id, data) => {
     });
     return response;
 }
-
-

@@ -24,6 +24,14 @@ export default function SideBar() {
             href: '/dashboard/users',
             ttile: 'All Users'
         },
+        {
+          href: '/dashboard/asset',
+          ttile: 'All Assets'
+      },
+      {
+        href: '/dashboard/maintance',
+        ttile: 'Maintance'
+    },
     ];
   return (
     <div className="z-20 hidden shadow-sm w-64 overflow-y-auto bg-white md:block h-screen flex-shrink-0">
@@ -33,8 +41,6 @@ export default function SideBar() {
           </Link>
           <ul className="mt-10">
             <li onClick={()=>onChange(0)} className="relative px-6 py-3">
-              <span className={value===0?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===0?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard">
                 <FaTachometerAlt className='w-4 h-4'/>
@@ -42,8 +48,6 @@ export default function SideBar() {
               </Link>
             </li>
             <li onClick={()=>onChange(1)} className="relative px-6 py-3">
-                <span className={value===1?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===1?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard/users">
                 <FaUserAlt className='w-4 h-4'/>
@@ -51,8 +55,6 @@ export default function SideBar() {
               </Link>
             </li>
             <li onClick={()=>onChange(2)} className="relative px-6 py-3">
-            <span className={value===2?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===2?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard/event">
                 <FaReceipt className='w-4 h-4'/>
@@ -60,8 +62,6 @@ export default function SideBar() {
               </Link>
             </li>
             <li onClick={()=>onChange(3)} className="relative px-6 py-3">
-                <span className={value===3?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===3?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard/ticket">
                 <FaTicketAlt className='w-4 h-4'/>
@@ -69,8 +69,6 @@ export default function SideBar() {
               </Link>
             </li>
             <li onClick={()=>onChange(4)} className="relative px-6 py-3">
-            <span className={value===4?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===4?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard/parking">
                 <FaParking className='w-4 h-4'/>
@@ -78,20 +76,30 @@ export default function SideBar() {
               </Link>
             </li>
             <li onClick={()=>onChange(5)} className="relative px-6 py-3">
-            <span className={value===5?"absolute inset-y-0 left-0 w-1 bg-slate-600 rounded-tr-lg rounded-br-lg": "hidden"}
-                aria-hidden="true"></span>
               <Link className={value===5?"text-slate-800"+style:"text-slate-500"+style}
                 href="/dashboard/refunds">
                 <FaIdCard className='w-4 h-4'/>
                 <span className="ml-4">Refunds</span>
               </Link>
             </li>
-
-            {/* <div onClick={()=>onChange(1)}><Navitem title='Users' children={users} icon={<FaUserAlt className='w-4 h-4'/>} value='1'activevalue={isActive}/></div>
-            <div onClick={()=>onChange(2)}><Navitem title='Events' children={users} icon={<FaReceipt className='w-4 h-4'/>} value='2'activevalue={isActive}/></div>
-            <div onClick={()=>onChange(3)}><Navitem title='Tickets' children={users} icon={<FaTicketAlt className='w-4 h-4'/>} value='3'activevalue={isActive}/></div>
-            <div onClick={()=>onChange(4)}><Navitem title='Parking' children={users} icon={<FaParking className='w-4 h-4'/>} value='4'activevalue={isActive}/></div>
-            <div onClick={()=>onChange(5)}><Navitem title='Employee' children={users} icon={<FaIdCard className='w-4 h-4'/>} value='5'activevalue={isActive}/></div> */}
+            <li onClick={()=>onChange(6)} className="relative px-6 py-3">
+              <Link className={value===6?"text-slate-800"+style:"text-slate-500"+style}
+                href="/dashboard/asset">
+                <svg className='w-5 h-5' xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5" />
+                </svg>
+                <span className="ml-4">All Assets</span>
+              </Link>
+            </li>
+            <li onClick={()=>onChange(7)} className="relative px-6 py-3">
+              <Link className={value===7?"text-slate-800"+style:"text-slate-500"+style}
+                href="/dashboard/maintance">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+                </svg>
+                <span className="ml-4">Maintenance</span>
+              </Link>
+            </li>
           </ul>
         </div>
     </div>
