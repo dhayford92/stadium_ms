@@ -55,7 +55,7 @@ export default function Event() {
     <main className='container max-w-full'>
         <div className='flex flex-col'>
         <div className='relative w-full h-[600px]'>
-                <div className='h-[600px] bg-cover object-cover bg-no-repeat bg-center' style={{backgroundImage: `url('/login.png')`,}}>
+                <div className='h-[600px] bg-cover object-cover bg-no-repeat bg-center' style={{backgroundImage: `url('/bg2.png')`,}}>
                     <div className="absolute inset-0 bg-black bg-opacity-50"/>
                     <div className='relative z-10 flex flex-col justify-center items-center h-[600px]'>
                         <div className='flex flex-col justify-center items-center text-white'>
