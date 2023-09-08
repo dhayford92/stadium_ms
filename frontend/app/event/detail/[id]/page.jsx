@@ -3,6 +3,7 @@ import React , { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation';
 import { AddtoCart, GetEvent } from '@/Utils/ClientServer/event_server';
 import Image from 'next/image';
+import { Button } from '@material-tailwind/react';
 
 export default function EventDetail({params}) {
     const route = useRouter();
@@ -13,23 +14,6 @@ export default function EventDetail({params}) {
     setQuantity(event.target.value);
   };
 
-//   const addtoCart = () => {
-//     const cart = localStorage.getItem('cart');
-//     if(!cart){
-//         localStorage.setItem('cart', JSON.stringify([{id: params.id, quantity: quantity, title: bookingData.title, image: bookingData.image}]))
-//     }else{
-//         const cartData = JSON.parse(cart);
-//         const index = cartData.findIndex((item)=> item.id === params.id);
-//         if(index === -1){
-//             cartData.push({id: params.id, quantity: quantity})
-//             localStorage.setItem('cart', JSON.stringify(cartData))
-//         }else{
-//             cartData[index].quantity = quantity;
-//             localStorage.setItem('cart', JSON.stringify(cartData))
-//         }
-//     }
-//     route.push('/event/cart')
-//   };
 
   const addtoCart = () => {
         const body = {quantity: quantity}
@@ -100,9 +84,9 @@ export default function EventDetail({params}) {
                     onChange={handleQuantityChange}
                 className="w-24 px-4 py-2 border border-gray-300 rounded-md focus:outline-none bg-white"/>
             </div>
-            <button onClick={()=>addtoCart()} className="btn">
+            <Button onClick={()=>addtoCart()} color='gray' className='p-2 h-14 mt-2 w-full md:w-[200px]'>
                 Book Now
-            </button>
+            </Button>
             </div>
       </div>
         

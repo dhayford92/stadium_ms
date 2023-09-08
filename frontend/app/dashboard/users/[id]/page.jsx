@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react'
 import { useRouter } from 'next/navigation'
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { GetUser, UpdateUser } from '@/Utils/AdminServer/user_server';
+import { Button } from '@material-tailwind/react';
 
 
 export default function UserDetail({params}) {
@@ -72,28 +73,28 @@ export default function UserDetail({params}) {
                         <input type='text' 
                             name='fullname'
                             value={user.fullname} 
-                            className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'
+                            className='bg-white w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'
                             />
                         <label className='text-gray-500'>Email</label>
                         <input type='email' value={user.email}
                             disabled={true} 
-                            className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
+                            className='bg-white w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
                         <label className='text-gray-500'>Phone Number</label>
                         <input type='text' value={user.number} name='number'
-                        className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
+                        className='bg-white w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
                         <label className='text-gray-500'>Role</label>
-                        <select name='is_staff' className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'>
+                        <select name='is_staff' className='w-full h-10 bg-white px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'>
                             <option selected={user.is_staff} value='true'>Employee</option>
                             <option selected={user.is_staff} value='false'>Client</option>
                         </select>
                         {/* <input type='text' value={user.is_staff? 'Employee': 'Client'} className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/> */}
-                        <button className='w-full h-10 px-3 text-base text-white bg-slate-600 rounded-lg focus:shadow-outline'>Update</button>
+                        <Button className='bg-gray-600 w-full h-10'>Update</Button>
                     </form>
                     <div className='flex flex-col space-y-2 md:w-1/2 bg-white border rounded-xl shadow-xl shadow-slate-100 p-5'>
                         <label className='text-gray-500'>Password</label>
-                        <input type='password' className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
+                        <input type='password' className='bg-white w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
                         <label className='text-gray-500'>Confirm Password</label>
-                        <input type='password' className='w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
+                        <input type='password' className='bg-white w-full h-10 px-3 text-base placeholder-gray-600 border rounded-lg focus:shadow-outline'/>
                         <button className='w-full h-10 px-3 text-base text-white bg-slate-600 rounded-lg focus:shadow-outline'>Update</button>
                     </div>
                 </div>

@@ -54,8 +54,8 @@ export default function ProfileNavBar() {
             {navitems.map((navItem)=>(
                 <li onClick={()=>changePage(navItem.id)}
                 className={
-                    navItem.id === currentIndex? 'p-2 bg-slate-500 text-white rounded-lg cursor-pointer'
-                    : 'cursor-pointer rounded-lg p-2 hover:text-2xl hover:text-white hover:bg-slate-500 hover:transition ease-in duration-200'} 
+                    navItem.id === currentIndex? 'p-2 bg-gray-500 text-white rounded-lg cursor-pointer'
+                    : 'cursor-pointer rounded-lg p-2 hover:text-2xl hover:text-white hover:bg-gray-500 hover:transition ease-in duration-200'} 
                 key={navItem.id}>{navItem.name}</li>
                 ))}
             <li onClick={()=>Logout()} className='cursor-pointer p-2 rounded-lg hover:text-2xl hover:text-white hover:bg-slate-500 hover:transition ease-in duration-200'>Logout</li>

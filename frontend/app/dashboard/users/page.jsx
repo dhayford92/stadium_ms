@@ -6,6 +6,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
 import { GetAllUsers, DeleteUser } from '@/Utils/AdminServer/user_server';
 import Paginator from '@/Components/admin/paginator';
+import { Button } from '@material-tailwind/react';
 
 export default function Users() {
   const route = useRouter();
@@ -48,8 +49,7 @@ export default function Users() {
         </h2>
         {/* Search */}
         <div className="mt-5 flex items-center justify-between mb-6">
-            <button onClick={()=>route.push('users/add')}
-            className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>Add New User</button>
+            <Button onClick={()=>route.push('users/add')} className='h-12 bg-blue-gray-600'>Add New User</Button>
             <form>   
                 <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative w-[500px]">

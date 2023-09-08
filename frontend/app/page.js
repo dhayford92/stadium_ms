@@ -1,7 +1,9 @@
 'use client'
 import Image from 'next/image'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Spinner } from "@material-tailwind/react";
 
 export const metadata = {
   title: 'Event | Login',
@@ -10,8 +12,10 @@ export const metadata = {
 
 export default function Home() {
   const route = useRouter();
+  const [loading, setLoading] = React.useState(false);
 
   const login = async (e) =>{
+    setLoading(true)
     e.preventDefault()
     const email = e.target[0]
     const password = e.target[1]
@@ -32,9 +36,11 @@ export default function Home() {
           data['is_staff'] === true ? route.push('/dashboard') : route.push('/event')
       }
       else if(response.status === 400){
-          alert(`${data['message']}`)
+        setLoading(false)
+        alert(`${data['message']}`)
       }
       else{
+        setLoading(false)
         alert('Something went wrong')
       }
   }

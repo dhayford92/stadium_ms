@@ -5,7 +5,7 @@
 
 
 .button {
-    @apply rounded-lg bg-slate-500 p-2 text-xl font-semibold text-white hover:transition ease-in duration-300 hover:bg-slate-300 hover:bottom-1 hover:text-slate-800;
+    @apply rounded-lg bg-gray-500 p-2 text-xl font-semibold text-white hover:transition ease-in duration-300 hover:bg-gray-300 hover:bottom-1 hover:text-gray-800;
 }
 
 .auth-input {

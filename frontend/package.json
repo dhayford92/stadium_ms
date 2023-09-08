@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@material-tailwind/react": "^2.1.1",
     "@react-pdf/renderer": "^3.1.12",
     "autoprefixer": "10.4.14",
     "next": "13.4.10",

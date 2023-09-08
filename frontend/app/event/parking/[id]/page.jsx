@@ -9,6 +9,7 @@ export default function ParkSlot({params}) {
   const [parkData, setParkData] = React.useState([
     {name: 'A1', is_booked: false},
   ]);
+  
 
   const [ticket, setTicket] = React.useState(0);
 
@@ -47,7 +48,7 @@ export default function ParkSlot({params}) {
     }, [])
 
   return (
-    <div className='flex flex-col justify-between items-center space-y-4 p-5'>
+    <div className='flex flex-col h-full md:h-screen items-center space-y-4 p-5'>
         <h2 className="text-2xl font-bold mb-4 mt-4 items-right">
             Please Select Your Slot
         </h2>
@@ -58,8 +59,7 @@ export default function ParkSlot({params}) {
         <div className='grid grid-cols-4 md:grid-cols-5 gap-5 text-white font-semibold'>
             {parkData.map((data, index)=>(
                 <div key={index} onClick={()=> data.is_booked == false && setTicket(()=>data.id)}
-                    className={data.is_booked == false?'p-4 rounded-lg bg-slate-500 text-center cursor-pointer hover:bg-slate-300 hover:transition ease-in-out duration-300 hover:text-slate-700': 
-                'p-4 rounded-lg bg-red-500 text-center cursor-pointer'}>
+                    className={data.is_booked == true || ticket === data.id ?'p-4 rounded-lg bg-red-500 text-center cursor-pointer':'p-4 rounded-lg bg-gray-500 text-center cursor-pointer hover:bg-gray-300 hover:transition ease-in-out duration-300 hover:text-gray-700'}>
                     {data.name}
                 </div>
             ))}

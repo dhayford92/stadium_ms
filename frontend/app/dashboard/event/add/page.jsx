@@ -3,6 +3,7 @@ import React from 'react'
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
 import { CreateEvent } from '@/Utils/AdminServer/admin_events';
+import { Button } from '@material-tailwind/react';
 
 export default function CreateEventPage() {
   const route = useRouter();
@@ -54,25 +55,25 @@ export default function CreateEventPage() {
                         <label htmlFor="title" className="block text-gray-600 font-semibold mb-1">
                             Title
                         </label>
-                        <input type="text" id="title" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="text" id="title" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                     <div>
                         <label htmlFor="price" className="block text-gray-600 font-semibold mb-1">
                             Price
                         </label>
-                        <input type="number" id="price" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="number" id="price" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                     <div>
                         <label htmlFor="capacity" className="block text-gray-600 font-semibold mb-1">
                             Capacity
                         </label>
-                        <input type="number" id="capacity" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="number" id="capacity" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                     <div>
                         <label htmlFor="event_type" className="block text-gray-600 font-semibold mb-1">
                             Event Type
                         </label>
-                        <select id="event_type" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
+                        <select id="event_type" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none">
                             <option value="Concert">Concert</option>
                             <option value="Sports">Sports</option>
                         </select>
@@ -82,13 +83,13 @@ export default function CreateEventPage() {
                             <label htmlFor="date" className="block text-gray-600 font-semibold mb-1">
                                 Date
                             </label>
-                            <input type="date" id="date" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                            <input type="date" id="date" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                         </div>
                         <div className='flex1'>
                             <label htmlFor="time" className="block text-gray-600 font-semibold mb-1">
                                 Time
                             </label>
-                            <input type="time" id="time" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                            <input type="time" id="time" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                         </div>
                     </div>
                 </div>
@@ -98,27 +99,27 @@ export default function CreateEventPage() {
                         <label htmlFor="location" className="block text-gray-600 font-semibold mb-1">
                             Location
                         </label>
-                        <input type="address" id="location" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="address" id="location" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                     <div>   
                         <label htmlFor="image" className="block text-gray-600 font-semibold mb-1">
                             Image
                         </label>
-                        <input type="file" id="image" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <input type="file" id="image" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                     <div>
                         <label htmlFor="description" className="block text-gray-600 font-semibold mb-1">
                             Description
                         </label>
-                        <textarea id="description" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
+                        <textarea id="description" className="bg-white w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"/>
                     </div>
                 </div>
             </div>
           <hr className="my-4"/>
             <div className="flex justify-end">
-                <button type="submit" className="button pl-4 pr-4">
+                <Button type="submit" className="pl-4 pr-4 bg-blue-gray-600">
                     Add Event
-                </button>
+                </Button>
             </div>
         </form>
       </div>

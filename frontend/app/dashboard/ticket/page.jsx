@@ -6,6 +6,7 @@ import { BsSearch } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import { DeleteTicket, GetAdminTicket } from '@/Utils/AdminServer/ticket_server';
 import SummaryCard from '@/Components/admin/summary_card';
+import { Button } from '@material-tailwind/react';
 
 
 export default function Events() {
@@ -100,11 +101,11 @@ export default function Events() {
               </div>} title='Tickets Refund' subtitle={data.tickets_refund}/>
         </div>
         {/* Search */}
-        <div className="mt-5 flex items-start md:items-center md:justify-between mb-6 flex-col space-y-4 md:flex-row">
-            <button className='px-4 py-2 bg-slate-600 text-white rounded-md hover:bg-slate-300 hover:text-slate-800 transition-colors ease-in-out duration-300'>
+        <div>
+            {/* <Button className='h-12 bg-blue-gray-600'>
                 Add New Tickets
-            </button>
-            <form>   
+            </Button> */}
+            <form className='self-end mt-6 mb-6'>   
                 <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative w-[500px]">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
