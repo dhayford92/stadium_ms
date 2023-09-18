@@ -52,7 +52,7 @@ export default function Register() {
                 <span class="text-gray-700">Full name</span>
                 <input
                   name='fullname'
-                  class="auth-input"
+                  class="auth-input bg-white"
                   placeholder="Jane Doe"
                 />
               </label>
@@ -60,7 +60,7 @@ export default function Register() {
                 <span class="text-gray-700">Email</span>
                 <input
                   name='email'
-                  class="auth-input"
+                  class="auth-input bg-white"
                   placeholder="example@mail.com"
                 />
               </label>
@@ -68,7 +68,7 @@ export default function Register() {
                 <span class="text-gray-700">Mobile number</span>
                 <input
                   name='number'
-                  class="auth-input"
+                  class="auth-input bg-white"
                   placeholder="233 244 123 456"
                   type="phone"
                 />
@@ -77,7 +77,7 @@ export default function Register() {
                 <span class="text-gray-700">Password</span>
                 <input
                   name='password'
-                  class="auth-input"
+                  class="auth-input bg-white"
                   placeholder="***************"
                   type="password"
                 />

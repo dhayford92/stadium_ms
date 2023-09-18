@@ -32,7 +32,7 @@ export default function About() {
                 </div>
                 <div className='inline-flex space-x-2 items-center'>
                   <AiOutlinePhone size={30} className='text-teal-300 text-xl'/>
-                  <h2>+233 24 020 9723</h2>
+                  <h2>+233 57 943 4792</h2>
                 </div>
                 <div className='inline-flex space-x-2 items-center'>
                   <AiOutlineHeatMap size={30} className='text-teal-300 text-xl'/>

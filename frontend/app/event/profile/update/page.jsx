@@ -56,17 +56,17 @@ export default function UpdateProfile() {
             <div className='flex flex-col space-y-4'>
                 <label for='' className='font-bold text-md'>Your fullname</label>
                 <input type='text' placeholder={user.fullname} disabled={loading || true}
-                className='bg-white ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
+                className='bg-white ring-1 text-gray-800 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
             </div>
             <div className='flex flex-col space-y-4'>
                 <label for='' className='font-bold text-md'>Your email</label>
                 <input type='text' placeholder={user.email} disabled={loading || true}
-                className='bg-white ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
+                className='bg-white text-gray-800 ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
             </div>
             <div className='flex flex-col space-y-4'>
                 <label for='' className='font-bold text-md'>Your number</label>
                 <input type='phone' name='number' placeholder={user.number} disabled={loading}
-                className='bg-white ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
+                className='bg-white text-gray-800 ring-1 ring-gray-200 w-full rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-slate-300'/>
             </div>
             <button type='submit' className='inline-block self-end bg-slate-500 text-white text-xl font-semibold rounded-lg h-10 px-6 py-2 uppercase'>Update Profile</button>
         </form>

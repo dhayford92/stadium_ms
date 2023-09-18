@@ -40,8 +40,8 @@ class ParkingLotAdmin(admin.ModelAdmin):
         
 
 
-admin.site.register(Event, EventAdmin)
-admin.site.register(Ticket, TicketAdmin)
+# admin.site.register(Event, EventAdmin)
+# admin.site.register(Ticket, TicketAdmin)
 admin.site.register(ParkingLot, ParkingLotAdmin)
 admin.site.register(Transaction)
 admin.site.register(Refund)

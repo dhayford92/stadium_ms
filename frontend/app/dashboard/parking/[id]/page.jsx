@@ -94,7 +94,7 @@ export default function ParkingDetailPage({ params }) {
                             <label htmlFor="users" className="block text-gray-600 font-semibold mb-1">
                                 Users
                             </label>
-                            <select id="users" name="users" className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none" value={park.users} disabled={edit}>
+                            <select id="users" name="users" className="bg-gray-100 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none" value={park.users} disabled={edit}>
                                 {users.map((user) => (
                                     <option value={user.id}>{user.fullname}</option>
                                 ))}
